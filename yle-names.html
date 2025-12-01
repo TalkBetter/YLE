@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>劍橋英檢常見英文名字（英文＋中文）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, "Microsoft JhengHei", sans-serif;
+      background: linear-gradient(135deg, #fff7fb 0%, #f5fbff 50%, #fffbe8 100%);
+      margin: 0;
+      padding: 16px;
+      line-height: 1.7;
+      color: #444;
+    }
+    h1, h2 {
+      text-align: center;
+      margin: 10px 0;
+    }
+    h1 {
+      font-size: 1.6rem;
+      padding: 6px 12px;
+      display: inline-block;
+      border-radius: 999px;
+      background: #ffffffee;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+      border: 1px solid #ffd6e8;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 4px;
+      text-align: left;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .page-subtitle {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin: 0 auto 20px auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      padding: 14px 14px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .section.boys::before   { background: #a0c4ff; }
+    .section.girls::before  { background: #ffb3c6; }
+    .section.family::before { background: #caffbf; }
+    .section.teacher::before{ background: #bdb2ff; }
+
+    .note {
+      font-size: 0.84rem;
+      color: #666;
+      margin: 4px 0 10px 0;
+    }
+
+    /* 播放條 */
+    .audio-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0 8px 0;
+      flex-wrap: wrap;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #fff5e6;
+      border: 1px dashed #ffd6a3;
+    }
+    .audio-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff9eb5, #ffc2e0);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(255,105,180,0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .audio-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 3px rgba(255,105,180,0.25);
+    }
+    .audio-label {
+      font-size: 0.82rem;
+      color: #555;
+    }
+    .audio-range {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .tiny-hint {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: -4px;
+      margin-bottom: 6px;
+    }
+
+    /* 表格 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 6px 8px;
+      text-align: left;
+    }
+    thead th {
+      background: #e9f2ff;
+      border-bottom: 1px solid #cfdfff;
+      font-weight: 600;
+    }
+    .section.girls thead th {
+      background: #ffe4f1;
+      border-bottom-color: #ffcfe4;
+    }
+    .section.family thead th {
+      background: #e6ffe9;
+      border-bottom-color: #ccf5d1;
+    }
+    .section.teacher thead th {
+      background: #ece8ff;
+      border-bottom-color: #d5ccff;
+    }
+
+    tbody tr:nth-child(odd) td {
+      background: #fffdfc;
+    }
+    tbody tr:nth-child(even) td {
+      background: #f7f6ff;
+    }
+    .section.boys tbody tr:nth-child(even) td {
+      background: #f2f7ff;
+    }
+    .section.girls tbody tr:nth-child(even) td {
+      background: #fff2f7;
+    }
+    .section.family tbody tr:nth-child(even) td {
+      background: #f2fff6;
+    }
+    .section.teacher tbody tr:nth-child(even) td {
+      background: #f4f2ff;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      .section {
+        padding: 12px 10px 14px;
+      }
+      table {
+        font-size: 0.85rem;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>劍橋英檢常見英文名字總表</h1>
+    <p class="page-subtitle">
+      Cambridge YLE Starters / Movers / Flyers　｜　常見人名＋聽力練習
+    </p>
+  </div>
+
+  <!-- ==================== 男生 Boys ==================== -->
+  <div class="section boys">
+    <h2>🧒 男生英文名字 Boys</h2>
+    <p class="note">
+      多數為 YLE 題目中常見、好拼寫的名字。請把 <b>boys-names.mp3</b> 放在與本頁相同資料夾。
+    </p>
+
+    <div class="audio-bar">
+      <button class="audio-btn" onclick="togglePlay('audio-boys', this)">
+        <span>▶</span><span>Boys' names</span>
+      </button>
+      <span class="audio-label">朗讀所有男生名字</span>
+      <input id="seek-boys" class="audio-range" type="range" min="0" max="100" value="0">
+    </div>
+    <div class="tiny-hint">提示：按一次播放，再按一次暫停，也可以拖曳下方進度條。</div>
+
+    <audio id="audio-boys" src="boys-names.mp3"></audio>
+
+    <table>
+      <tr>
+        <th>英文名</th>
+        <th>中文對應</th>
+      </tr>
+      <tr><td>Tom</td><td>湯姆</td></tr>
+      <tr><td>Tim</td><td>提姆</td></tr>
+      <tr><td>Ben</td><td>班</td></tr>
+      <tr><td>Bill</td><td>比爾</td></tr>
+      <tr><td>Bob</td><td>鮑伯</td></tr>
+      <tr><td>Nick</td><td>尼克</td></tr>
+      <tr><td>Sam</td><td>山姆</td></tr>
+      <tr><td>Jim</td><td>吉姆</td></tr>
+      <tr><td>John</td><td>約翰</td></tr>
+      <tr><td>Fred</td><td>佛瑞德</td></tr>
+      <tr><td>Harry</td><td>哈利</td></tr>
+      <tr><td>Peter</td><td>彼得</td></tr>
+      <tr><td>Paul</td><td>保羅</td></tr>
+      <tr><td>Mike</td><td>麥克</td></tr>
+      <tr><td>Mark</td><td>馬克</td></tr>
+      <tr><td>Alex</td><td>亞力克斯</td></tr>
+      <tr><td>Adam</td><td>亞當</td></tr>
+      <tr><td>Dan</td><td>丹</td></tr>
+      <tr><td>David</td><td>大衛</td></tr>
+      <tr><td>Jack</td><td>傑克</td></tr>
+      <tr><td>Joe</td><td>喬</td></tr>
+      <tr><td>Luke</td><td>路克</td></tr>
+      <tr><td>Matt</td><td>麥特</td></tr>
+      <tr><td>Max</td><td>麥克斯</td></tr>
+      <tr><td>Oscar</td><td>奧斯卡</td></tr>
+      <tr><td>Leo</td><td>里歐</td></tr>
+      <tr><td>William (Will)</td><td>威廉</td></tr>
+      <tr><td>Tony</td><td>東尼</td></tr>
+      <tr><td>Eric</td><td>艾力克</td></tr>
+      <tr><td>Alan</td><td>艾倫</td></tr>
+      <tr><td>Alfie</td><td>艾爾菲</td></tr>
+      <tr><td>Archie</td><td>阿奇</td></tr>
+      <tr><td>Andy</td><td>安迪</td></tr>
+      <tr><td>Brandon</td><td>布蘭登</td></tr>
+      <tr><td>Bryan</td><td>布萊恩</td></tr>
+      <tr><td>Caleb</td><td>卡列布</td></tr>
+      <tr><td>Carl</td><td>卡爾</td></tr>
+      <tr><td>Charlie</td><td>查理</td></tr>
+      <tr><td>Chris</td><td>克里斯</td></tr>
+      <tr><td>Colin</td><td>柯林</td></tr>
+      <tr><td>Conor</td><td>康納</td></tr>
+      <tr><td>Dylan</td><td>迪倫</td></tr>
+      <tr><td>Eddie / Ed</td><td>艾迪</td></tr>
+      <tr><td>Edward</td><td>愛德華</td></tr>
+      <tr><td>Eli</td><td>以利</td></tr>
+      <tr><td>Ethan</td><td>伊森</td></tr>
+      <tr><td>Frank</td><td>法蘭克</td></tr>
+      <tr><td>Gary</td><td>蓋瑞</td></tr>
+      <tr><td>Gavin</td><td>加文</td></tr>
+      <tr><td>George</td><td>喬治</td></tr>
+      <tr><td>Hank</td><td>漢克</td></tr>
+      <tr><td>Henry</td><td>亨利</td></tr>
+      <tr><td>Hugo</td><td>雨果</td></tr>
+      <tr><td>Ian</td><td>伊恩</td></tr>
+      <tr><td>Isaac</td><td>以撒</td></tr>
+      <tr><td>Ivan</td><td>伊凡</td></tr>
+      <tr><td>Jacob</td><td>雅各</td></tr>
+      <tr><td>Jason</td><td>傑森</td></tr>
+      <tr><td>Jeff</td><td>傑夫</td></tr>
+      <tr><td>Jeremy</td><td>傑瑞米</td></tr>
+      <tr><td>Jonathan</td><td>喬納森</td></tr>
+      <tr><td>Jordan</td><td>喬登</td></tr>
+      <tr><td>Justin</td><td>賈斯汀</td></tr>
+      <tr><td>Karl</td><td>卡爾</td></tr>
+      <tr><td>Kevin</td><td>凱文</td></tr>
+      <tr><td>Liam</td><td>利亞姆</td></tr>
+      <tr><td>Logan</td><td>洛根</td></tr>
+      <tr><td>Martin</td><td>馬丁</td></tr>
+      <tr><td>Mason</td><td>梅森</td></tr>
+      <tr><td>Nathan</td><td>奈森</td></tr>
+      <tr><td>Neil</td><td>尼爾</td></tr>
+      <tr><td>Noah</td><td>諾亞</td></tr>
+      <tr><td>Oliver</td><td>奧利佛</td></tr>
+      <tr><td>Owen</td><td>歐文</td></tr>
+      <tr><td>Patrick</td><td>派屈克</td></tr>
+      <tr><td>Philip</td><td>菲利浦</td></tr>
+      <tr><td>Ray</td><td>雷</td></tr>
+      <tr><td>Raymond</td><td>雷蒙</td></tr>
+      <tr><td>Richard</td><td>理查</td></tr>
+      <tr><td>Rob / Robert</td><td>羅伯特</td></tr>
+      <tr><td>Roger</td><td>羅傑</td></tr>
+      <tr><td>Ryan</td><td>萊恩</td></tr>
+      <tr><td>Sean</td><td>尚恩</td></tr>
+      <tr><td>Simon</td><td>西蒙</td></tr>
+      <tr><td>Steven / Steve</td><td>史提夫</td></tr>
+      <tr><td>Toby</td><td>托比</td></tr>
+      <tr><td>Tommy</td><td>湯米</td></tr>
+      <tr><td>Victor</td><td>維克多</td></tr>
+      <tr><td>Vincent</td><td>文森特</td></tr>
+      <tr><td>Zack / Zach</td><td>扎克</td></tr>
+    </table>
+  </div>
+
+  <!-- ==================== 女生 Girls ==================== -->
+  <div class="section girls">
+    <h2>👧 女生英文名字 Girls</h2>
+    <p class="note">
+      多半是題目裡用來指認人物的名字。請把 <b>girls-names.mp3</b> 放在與本頁相同資料夾。
+    </p>
+
+    <div class="audio-bar">
+      <button class="audio-btn" onclick="togglePlay('audio-girls', this)">
+        <span>▶</span><span>Girls' names</span>
+      </button>
+      <span class="audio-label">朗讀所有女生名字</span>
+      <input id="seek-girls" class="audio-range" type="range" min="0" max="100" value="0">
+    </div>
+    <div class="tiny-hint">可以一邊聽，一邊在表格上圈出聽到的名字。</div>
+
+    <audio id="audio-girls" src="girls-names.mp3"></audio>
+
+    <table>
+      <tr>
+        <th>英文名</th>
+        <th>中文對應</th>
+      </tr>
+      <tr><td>Anna</td><td>安娜</td></tr>
+      <tr><td>Ann</td><td>安</td></tr>
+      <tr><td>Amy</td><td>艾咪</td></tr>
+      <tr><td>Alice</td><td>愛麗絲</td></tr>
+      <tr><td>Helen</td><td>海倫</td></tr>
+      <tr><td>Eve</td><td>伊芙</td></tr>
+      <tr><td>Eva</td><td>伊娃</td></tr>
+      <tr><td>Jane</td><td>珍</td></tr>
+      <tr><td>Jill</td><td>吉兒</td></tr>
+      <tr><td>Jenny</td><td>珍妮</td></tr>
+      <tr><td>Kate</td><td>凱特</td></tr>
+      <tr><td>Kelly</td><td>凱莉</td></tr>
+      <tr><td>Kim</td><td>金</td></tr>
+      <tr><td>Lily</td><td>莉莉</td></tr>
+      <tr><td>Lucy</td><td>露西</td></tr>
+      <tr><td>Mary</td><td>瑪麗</td></tr>
+      <tr><td>May</td><td>梅</td></tr>
+      <tr><td>Mia</td><td>米雅</td></tr>
+      <tr><td>Molly</td><td>茉莉</td></tr>
+      <tr><td>Sara / Sarah</td><td>莎拉</td></tr>
+      <tr><td>Susan</td><td>蘇珊</td></tr>
+      <tr><td>Sally</td><td>莎莉</td></tr>
+      <tr><td>Sophie</td><td>索菲</td></tr>
+      <tr><td>Emma</td><td>艾瑪</td></tr>
+      <tr><td>Ella</td><td>艾拉</td></tr>
+      <tr><td>Grace</td><td>葛蕾絲</td></tr>
+      <tr><td>Linda</td><td>琳達</td></tr>
+      <tr><td>Julie</td><td>朱莉</td></tr>
+      <tr><td>Abby</td><td>艾比</td></tr>
+      <tr><td>Abigail</td><td>阿比蓋</td></tr>
+      <tr><td>Alyssa</td><td>亞莉莎</td></tr>
+      <tr><td>Amber</td><td>安柏</td></tr>
+      <tr><td>April</td><td>四月（名字）</td></tr>
+      <tr><td>Ariel</td><td>愛麗兒</td></tr>
+      <tr><td>Ashley</td><td>愛雪莉</td></tr>
+      <tr><td>Bella</td><td>貝拉</td></tr>
+      <tr><td>Beth</td><td>貝絲</td></tr>
+      <tr><td>Brenda</td><td>布蘭達</td></tr>
+      <tr><td>Cathy</td><td>凱西</td></tr>
+      <tr><td>Celine</td><td>仙琳</td></tr>
+      <tr><td>Charlotte</td><td>夏洛特</td></tr>
+      <tr><td>Chloe</td><td>克蘿伊</td></tr>
+      <tr><td>Christina</td><td>克莉絲汀娜</td></tr>
+      <tr><td>Claire</td><td>克萊兒</td></tr>
+      <tr><td>Clara</td><td>克拉拉</td></tr>
+      <tr><td>Daisy</td><td>黛西</td></tr>
+      <tr><td>Diana</td><td>黛安娜</td></tr>
+      <tr><td>Donna</td><td>唐娜</td></tr>
+      <tr><td>Edith</td><td>伊迪絲</td></tr>
+      <tr><td>Elena</td><td>艾蓮娜</td></tr>
+      <tr><td>Elizabeth</td><td>伊莉莎白</td></tr>
+      <tr><td>Elsa</td><td>艾莎</td></tr>
+      <tr><td>Emily</td><td>艾蜜莉</td></tr>
+      <tr><td>Erin</td><td>愛琳</td></tr>
+      <tr><td>Fiona</td><td>費歐娜</td></tr>
+      <tr><td>Flora</td><td>芙蘿拉</td></tr>
+      <tr><td>Frances</td><td>法蘭西絲</td></tr>
+      <tr><td>Gloria</td><td>葛洛麗亞</td></tr>
+      <tr><td>Hailey</td><td>海莉</td></tr>
+      <tr><td>Hannah</td><td>漢娜</td></tr>
+      <tr><td>Isabel</td><td>伊莎貝爾</td></tr>
+      <tr><td>Isabella</td><td>伊莎貝拉</td></tr>
+      <tr><td>Ivy</td><td>艾薇</td></tr>
+      <tr><td>Jasmine</td><td>茉莉</td></tr>
+      <tr><td>Joanna</td><td>喬安娜</td></tr>
+      <tr><td>Josephine</td><td>約瑟芬</td></tr>
+      <tr><td>Joy</td><td>喬伊（喜悅）</td></tr>
+      <tr><td>Karen</td><td>凱倫</td></tr>
+      <tr><td>Katy</td><td>凱蒂</td></tr>
+      <tr><td>Laura</td><td>蘿拉</td></tr>
+      <tr><td>Lauren</td><td>勞倫</td></tr>
+      <tr><td>Leah</td><td>莉雅</td></tr>
+      <tr><td>Lisa</td><td>莉莎</td></tr>
+      <tr><td>Lola</td><td>洛拉</td></tr>
+      <tr><td>Mandy</td><td>曼蒂</td></tr>
+      <tr><td>Maria</td><td>瑪麗亞</td></tr>
+      <tr><td>Megan</td><td>梅根</td></tr>
+      <tr><td>Melody</td><td>梅洛蒂</td></tr>
+      <tr><td>Michelle</td><td>蜜雪兒</td></tr>
+      <tr><td>Nancy</td><td>南希</td></tr>
+      <tr><td>Natalie</td><td>娜塔莉</td></tr>
+      <tr><td>Nina</td><td>妮娜</td></tr>
+      <tr><td>Nicole</td><td>妮可</td></tr>
+      <tr><td>Olivia</td><td>奧莉維亞</td></tr>
+      <tr><td>Pam</td><td>潘姆</td></tr>
+      <tr><td>Patty</td><td>派蒂</td></tr>
+      <tr><td>Phoebe</td><td>菲比</td></tr>
+      <tr><td>Rachel</td><td>瑞秋</td></tr>
+      <tr><td>Rebecca</td><td>蕾貝卡</td></tr>
+      <tr><td>Rita</td><td>莉塔</td></tr>
+      <tr><td>Rose</td><td>玫瑰</td></tr>
+      <tr><td>Ruby</td><td>露比</td></tr>
+      <tr><td>Sandy</td><td>珊蒂</td></tr>
+      <tr><td>Selina</td><td>賽琳娜</td></tr>
+      <tr><td>Sharon</td><td>雪倫</td></tr>
+      <tr><td>Stella</td><td>史黛拉</td></tr>
+      <tr><td>Tina</td><td>蒂娜</td></tr>
+      <tr><td>Tracy</td><td>崔西</td></tr>
+      <tr><td>Vicky</td><td>維琪</td></tr>
+      <tr><td>Victoria</td><td>維多莉亞</td></tr>
+      <tr><td>Violet</td><td>紫羅蘭（名字）</td></tr>
+      <tr><td>Wendy</td><td>溫蒂</td></tr>
+    </table>
+  </div>
+
+  <!-- ==================== 家庭 & 老師 ==================== -->
+  <div class="section family">
+    <h2>👨‍👩‍👧 家庭稱呼 Family Words</h2>
+    <p class="note">常出現在聽力與閱讀中的家庭成員稱呼。</p>
+    <table>
+      <tr><th>英文</th><th>中文</th></tr>
+      <tr><td>Mom / Mum</td><td>媽媽</td></tr>
+      <tr><td>Dad</td><td>爸爸</td></tr>
+      <tr><td>Grandma</td><td>奶奶 / 外婆</td></tr>
+      <tr><td>Grandpa</td><td>爺爺 / 外公</td></tr>
+      <tr><td>Uncle</td><td>叔叔 / 舅舅</td></tr>
+      <tr><td>Aunt</td><td>阿姨 / 姑姑</td></tr>
+      <tr><td>Cousin</td><td>表兄弟姊妹</td></tr>
+    </table>
+  </div>
+
+  <div class="section teacher">
+    <h2>👨‍🏫 老師與常見姓氏（Mr. / Mrs.）</h2>
+    <p class="note">在 Movers / Flyers 中常用來稱呼老師或大人的姓氏。</p>
+    <table>
+      <tr><th>英文稱呼</th><th>中文</th></tr>
+      <tr><td>Mr. Brown</td><td>布朗先生</td></tr>
+      <tr><td>Mr. Black</td><td>布萊克先生</td></tr>
+      <tr><td>Mr. White</td><td>懷特先生</td></tr>
+      <tr><td>Mr. Green</td><td>格林先生</td></tr>
+      <tr><td>Mr. Gray</td><td>格雷先生</td></tr>
+      <tr><td>Mrs. Brown</td><td>布朗太太</td></tr>
+      <tr><td>Mrs. Black</td><td>布萊克太太</td></tr>
+      <tr><td>Mrs. White</td><td>懷特太太</td></tr>
+    </table>
+  </div>
+
+  <!-- ==================== 播放控制 Script ==================== -->
+  <script>
+    function togglePlay(audioId, btn) {
+      const audio = document.getElementById(audioId);
+      if (!audio) return;
+
+      // 停掉其他音檔
+      document.querySelectorAll('audio').forEach(a => {
+        if (a !== audio) a.pause();
+      });
+      document.querySelectorAll('.audio-btn').forEach(b => {
+        if (b !== btn) {
+          if (b.textContent.includes('⏸')) {
+            b.innerHTML = b.innerHTML.replace('⏸', '▶');
+          }
+        }
+      });
+
+      if (audio.paused) {
+        audio.play();
+        btn.innerHTML = btn.innerHTML.replace('▶', '⏸');
+      } else {
+        audio.pause();
+        btn.innerHTML = btn.innerHTML.replace('⏸', '▶');
+      }
+
+      audio.onended = () => {
+        btn.innerHTML = btn.innerHTML.replace('⏸', '▶');
+      };
+    }
+
+    function setupSeekBar(audioId, rangeId) {
+      const audio = document.getElementById(audioId);
+      const range = document.getElementById(rangeId);
+      if (!audio || !range) return;
+
+      audio.addEventListener('timeupdate', () => {
+        if (!audio.duration) return;
+        range.value = (audio.currentTime / audio.duration) * 100;
+      });
+
+      range.addEventListener('input', () => {
+        if (!audio.duration) return;
+        const pct = range.value / 100;
+        audio.currentTime = audio.duration * pct;
+      });
+    }
+
+    setupSeekBar('audio-boys', 'seek-boys');
+    setupSeekBar('audio-girls', 'seek-girls');
+  </script>
+
+</body>
+</html>
