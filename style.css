@@ -1,0 +1,490 @@
+:root {
+  --bg: #f7f7fb;
+  --card-bg: #ffffff;
+  --primary: #4a6fdc;
+  --primary-soft: #e2e7ff;
+  --accent-movers: #ffb347;
+  --accent-starters: #4adca3;
+  --accent-flyers: #b47cff;
+  --text-main: #222;
+  --text-sub: #666;
+  --border-soft: #e0e0f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Microsoft JhengHei", sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  margin-bottom: 12px;
+}
+
+.top-bar {
+  max-width: 1080px;
+  margin: 0 auto 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.level-tabs {
+  display: inline-flex;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.level-tab {
+  border: none;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-sub);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.level-tab span.icon {
+  font-size: 1rem;
+}
+
+.level-tab.active.level-starters {
+  background: var(--accent-starters);
+  color: #fff;
+}
+.level-tab.active.level-movers {
+  background: var(--accent-movers);
+  color: #fff;
+}
+.level-tab.active.level-flyers {
+  background: var(--accent-flyers);
+  color: #fff;
+}
+
+.print-btn {
+  border-radius: 999px;
+  border: 1px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.print-btn:hover {
+  background: var(--primary-soft);
+}
+
+/* 搜尋卡片與單一搜尋框 */
+.search-card {
+  max-width: 1080px;
+  margin: 0 auto 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.search-card input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 1rem;
+  outline: none;
+  background: #fafbff;
+  color: var(--text-main);
+}
+.search-card input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px rgba(74,111,220,0.2);
+  background: #fff;
+}
+
+.main-layout {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.sidebar {
+  flex: 0 0 180px;
+  max-width: 220px;
+}
+
+.content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.category-buttons {
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  max-height: 70vh;
+  overflow: auto;
+  font-size: 0.85rem;
+}
+
+.cat-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cat-btn {
+  width: 100%;
+  text-align: left;
+  border-radius: 999px;
+  border: none;
+  padding: 4px 9px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background: #f4f5ff;
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.cat-btn span.count {
+  font-size: 0.7rem;
+  color: #777;
+}
+
+.cat-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.cat-btn.special {
+  font-weight: 600;
+}
+
+.word-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  min-height: 200px;
+}
+
+.panel-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 4px;
+}
+
+.panel-title-main {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.panel-title-sub {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+}
+
+.panel-badge {
+  font-size: 0.75rem;
+  border-radius: 999px;
+  padding: 1px 8px;
+  background: #f1f2ff;
+  color: #555;
+}
+
+.categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category-block {
+  border-top: 2px solid var(--border-soft);
+  padding-top: 6px;
+  margin-top: 4px;
+  break-inside: avoid;
+}
+
+.category-header-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  margin-bottom: 4px;
+}
+
+.category-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 3px 6px;
+  border-radius: 8px;
+  background: #f4f5ff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.category-name span.icon {
+  font-size: 1rem;
+}
+
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 12px;
+  font-size: 0.9rem;
+}
+
+.word-cell {
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.word-cell:nth-child(4n+1),
+.word-cell:nth-child(4n+2) {
+  background: #fafbff;
+}
+
+.word-en-zh {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.word-en {
+  font-weight: 600;
+}
+
+.word-pos {
+  font-size: 0.7rem;
+  color: var(--text-sub);
+  padding: 0 4px;
+  border-radius: 999px;
+  border: 1px solid #dde;
+  align-self: center;
+}
+
+.word-zh {
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.flat-note {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+}
+
+.empty-state {
+  font-size: 0.9rem;
+  color: var(--text-sub);
+  padding: 16px 4px;
+  text-align: center;
+}
+
+/* ========= 手機版 ========= */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    font-size: clamp(18px, 4.2vw, 20px);
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .level-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .print-btn {
+    align-self: flex-end;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    max-width: none;
+    flex: 1 1 auto;
+  }
+
+  .category-buttons {
+    max-height: none;
+    font-size: 1rem;
+    padding: 10px 10px;
+  }
+
+  /* ⭐ 手機版分類按鈕放大 */
+  .cat-btn {
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+    border-radius: 999px;
+  }
+
+  .cat-btn span.count {
+    font-size: 0.9rem;
+  }
+
+  .cat-title {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .word-panel {
+    padding: 14px;
+  }
+
+  .word-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    font-size: 1.1rem;
+  }
+
+  .word-cell {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+
+  .word-en {
+    font-size: 1.15rem;
+  }
+
+  .word-zh {
+    font-size: 1.05rem;
+  }
+
+  .word-pos {
+    font-size: 0.85rem;
+  }
+
+  .category-name {
+    font-size: 1.1rem;
+  }
+
+  .flat-note,
+  .cat-title {
+    font-size: 0.95rem;
+  }
+}
+
+/* ========= 列印模式 ========= */
+@media print {
+
+  body {
+    background: #fff;
+    padding: 0;
+    font-size: 11pt;
+  }
+
+  /* 列印時隱藏頁面標題與上方說明 */
+  h1,
+  .subtitle,
+  .panel-title {
+    display: none !important;
+  }
+
+  .top-bar,
+  .search-card,
+  .sidebar {
+    display: none !important;
+  }
+
+  .main-layout {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 8mm 0 8mm;
+    display: block;
+  }
+
+  .word-panel {
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  /* 列印維持每個主題內兩欄（靠 grid），避免左欄空白 */
+  #wordContent {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .word-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 2px 8px !important;
+    font-size: 10pt;
+  }
+
+  .word-cell {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    background: transparent !important;
+    padding: 1px 2px;
+  }
+
+  .category-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* 紙張邊界 */
+@page {
+  margin: 12mm 8mm 14mm 8mm;
+}
