@@ -1,0 +1,619 @@
+// ===========================
+// Starters 單字
+// ===========================
+window.STARTERS_DATA = {
+      categories: [
+    {
+      id: "family",
+      label: "家人 & 人物",
+      icon: "👨‍👩‍👧‍👦",
+      words: [
+        { en: "father",  pos: "n", zh: "爸爸" },
+        { en: "mother",  pos: "n", zh: "媽媽" },
+        { en: "dad",     pos: "n", zh: "爸爸（口語）" },
+        { en: "mum",     pos: "n", zh: "媽媽（口語）" },
+        { en: "brother", pos: "n", zh: "兄弟" },
+        { en: "sister",  pos: "n", zh: "姐妹" },
+        { en: "grandma", pos: "n", zh: "奶奶；外婆" },
+        { en: "grandpa", pos: "n", zh: "爺爺；外公" },
+        { en: "grandmother", pos: "n", zh: "祖母" },
+        { en: "grandfather", pos: "n", zh: "祖父" },
+        { en: "family",  pos: "n", zh: "家庭；家人" },
+        { en: "friend",  pos: "n", zh: "朋友" },
+        { en: "baby",    pos: "n", zh: "嬰兒" },
+        { en: "man",     pos: "n", zh: "男人" },
+        { en: "men",     pos: "n", zh: "男人（複數）" },
+        { en: "woman",   pos: "n", zh: "女人" },
+        { en: "women",   pos: "n", zh: "女人（複數）" },
+        { en: "Miss",    pos: "title", zh: "小姐（稱謂）" },
+        { en: "Mr",      pos: "title", zh: "先生（稱謂）" },
+        { en: "Mrs",     pos: "title", zh: "太太（稱謂）" }
+      ]
+    },
+    {
+      id: "people-jobs",
+      label: "人物 & 職業",
+      icon: "🧑‍🏫",
+      words: [
+        { en: "boy",    pos: "n", zh: "男孩" },
+        { en: "girl",   pos: "n", zh: "女孩" },
+        { en: "child",  pos: "n", zh: "小孩" },
+        { en: "children", pos: "n", zh: "小孩（複數）" },
+        { en: "teacher", pos: "n", zh: "老師" },
+        { en: "student", pos: "n", zh: "學生" },
+        { en: "doctor",  pos: "n", zh: "醫生" },
+        { en: "nurse",   pos: "n", zh: "護士" },
+        { en: "police officer", pos: "n", zh: "警察" },
+        { en: "worker",  pos: "n", zh: "工人；工作人員" }
+      ]
+    },
+    {
+      id: "body",
+      label: "身體部位",
+      icon: "🧍",
+      words: [
+        { en: "head",   pos: "n", zh: "頭" },
+        { en: "face",   pos: "n", zh: "臉" },
+        { en: "eye",    pos: "n", zh: "眼睛" },
+        { en: "eyes",   pos: "n", zh: "眼睛（複數）" },
+        { en: "ear",    pos: "n", zh: "耳朵" },
+        { en: "ears",   pos: "n", zh: "耳朵（複數）" },
+        { en: "nose",   pos: "n", zh: "鼻子" },
+        { en: "mouth",  pos: "n", zh: "嘴巴" },
+        { en: "tooth",  pos: "n", zh: "牙齒" },
+        { en: "teeth",  pos: "n", zh: "牙齒（複數）" },
+        { en: "hair",   pos: "n", zh: "頭髮" },
+        { en: "hand",   pos: "n", zh: "手" },
+        { en: "hands",  pos: "n", zh: "雙手" },
+        { en: "arm",    pos: "n", zh: "手臂" },
+        { en: "leg",    pos: "n", zh: "腿" },
+        { en: "foot",   pos: "n", zh: "腳" },
+        { en: "feet",   pos: "n", zh: "腳（複數）" },
+        { en: "body",   pos: "n", zh: "身體" }
+      ]
+    },
+    {
+      id: "clothes",
+      label: "衣服 & 配件",
+      icon: "👕",
+      words: [
+        { en: "clothes", pos: "n", zh: "衣服（總稱）" },
+        { en: "T-shirt", pos: "n", zh: "T 恤" },
+        { en: "shirt",   pos: "n", zh: "襯衫" },
+        { en: "dress",   pos: "n", zh: "洋裝" },
+        { en: "skirt",   pos: "n", zh: "裙子" },
+        { en: "trousers", pos: "n", zh: "長褲" },
+        { en: "shorts",  pos: "n", zh: "短褲" },
+        { en: "coat",    pos: "n", zh: "外套" },
+        { en: "jacket",  pos: "n", zh: "夾克" },
+        { en: "hat",     pos: "n", zh: "帽子" },
+        { en: "cap",     pos: "n", zh: "鴨舌帽" },
+        { en: "shoe",    pos: "n", zh: "鞋子" },
+        { en: "shoes",   pos: "n", zh: "鞋子（複數）" },
+        { en: "sock",    pos: "n", zh: "襪子" },
+        { en: "socks",   pos: "n", zh: "襪子（複數）" },
+        { en: "bag",     pos: "n", zh: "包包；袋子" }
+      ]
+    },
+    {
+      id: "home",
+      label: "家裡 & 家具",
+      icon: "🏠",
+      words: [
+        { en: "home",    pos: "n", zh: "家" },
+        { en: "house",   pos: "n", zh: "房子" },
+        { en: "kitchen", pos: "n", zh: "廚房" },
+        { en: "bathroom", pos: "n", zh: "浴室；廁所" },
+        { en: "bedroom", pos: "n", zh: "臥室" },
+        { en: "living room", pos: "n", zh: "客廳" },
+        { en: "door",    pos: "n", zh: "門" },
+        { en: "window",  pos: "n", zh: "窗戶" },
+        { en: "floor",   pos: "n", zh: "地板" },
+        { en: "wall",    pos: "n", zh: "牆壁" },
+        { en: "bed",     pos: "n", zh: "床" },
+        { en: "table",   pos: "n", zh: "桌子" },
+        { en: "chair",   pos: "n", zh: "椅子" },
+        { en: "sofa",    pos: "n", zh: "沙發" },
+        { en: "cupboard", pos: "n", zh: "櫥櫃" },
+        { en: "telephone", pos: "n", zh: "電話" }
+      ]
+    },
+    {
+      id: "school-objects",
+      label: "學校 & 文具",
+      icon: "🏫",
+      words: [
+        { en: "school",  pos: "n", zh: "學校" },
+        { en: "classroom", pos: "n", zh: "教室" },
+        { en: "teacher", pos: "n", zh: "老師" },
+        { en: "student", pos: "n", zh: "學生" },
+        { en: "desk",    pos: "n", zh: "書桌" },
+        { en: "chair",   pos: "n", zh: "椅子" },
+        { en: "board",   pos: "n", zh: "黑板/白板" },
+        { en: "rubber",  pos: "n", zh: "橡皮擦" },
+        { en: "pencil",  pos: "n", zh: "鉛筆" },
+        { en: "pen",     pos: "n", zh: "原子筆" },
+        { en: "book",    pos: "n", zh: "書" },
+        { en: "bag",     pos: "n", zh: "書包；袋子" },
+        { en: "ruler",   pos: "n", zh: "尺" },
+        { en: "computer", pos: "n", zh: "電腦" },
+        { en: "picture", pos: "n", zh: "圖畫；照片" }
+      ]
+    },
+    {
+      id: "toys-games",
+      label: "玩具 & 遊戲",
+      icon: "🧸",
+      words: [
+        { en: "toy",     pos: "n", zh: "玩具" },
+        { en: "game",    pos: "n", zh: "遊戲" },
+        { en: "ball",    pos: "n", zh: "球" },
+        { en: "kite",    pos: "n", zh: "風箏" },
+        { en: "doll",    pos: "n", zh: "洋娃娃" },
+        { en: "computer game", pos: "n", zh: "電腦遊戲" }
+      ]
+    },
+    {
+      id: "animals",
+      label: "動物",
+      icon: "🐶",
+      words: [
+        { en: "animal", pos: "n", zh: "動物" },
+        { en: "dog",    pos: "n", zh: "狗" },
+        { en: "cat",    pos: "n", zh: "貓" },
+        { en: "fish",   pos: "n", zh: "魚" },
+        { en: "bird",   pos: "n", zh: "鳥" },
+        { en: "duck",   pos: "n", zh: "鴨子" },
+        { en: "cow",    pos: "n", zh: "牛" },
+        { en: "horse",  pos: "n", zh: "馬" },
+        { en: "mouse",  pos: "n", zh: "老鼠" },
+        { en: "sheep",  pos: "n", zh: "羊" },
+        { en: "elephant", pos: "n", zh: "大象" },
+        { en: "monkey", pos: "n", zh: "猴子" }
+      ]
+    },
+    {
+      id: "food-drink",
+      label: "食物 & 飲料",
+      icon: "🍎",
+      words: [
+        { en: "food",   pos: "n", zh: "食物" },
+        { en: "drink",  pos: "n", zh: "飲料；喝" },
+        { en: "water",  pos: "n", zh: "水" },
+        { en: "milk",   pos: "n", zh: "牛奶" },
+        { en: "juice",  pos: "n", zh: "果汁" },
+        { en: "tea",    pos: "n", zh: "茶" },
+        { en: "coffee", pos: "n", zh: "咖啡" },
+        { en: "bread",  pos: "n", zh: "麵包" },
+        { en: "cake",   pos: "n", zh: "蛋糕" },
+        { en: "egg",    pos: "n", zh: "蛋" },
+        { en: "apple",  pos: "n", zh: "蘋果" },
+        { en: "banana", pos: "n", zh: "香蕉" },
+        { en: "orange", pos: "n", zh: "柳橙" },
+        { en: "sweet",  pos: "n", zh: "糖果；甜食" }
+      ]
+    },
+    {
+      id: "nature-weather",
+      label: "大自然 & 天氣",
+      icon: "☀️",
+      words: [
+        { en: "sun",    pos: "n", zh: "太陽" },
+        { en: "moon",   pos: "n", zh: "月亮" },
+        { en: "star",   pos: "n", zh: "星星" },
+        { en: "sky",    pos: "n", zh: "天空" },
+        { en: "cloud",  pos: "n", zh: "雲" },
+        { en: "rain",   pos: "n", zh: "雨；下雨" },
+        { en: "snow",   pos: "n", zh: "雪；下雪" },
+        { en: "wind",   pos: "n", zh: "風" },
+        { en: "tree",   pos: "n", zh: "樹" },
+        { en: "flower", pos: "n", zh: "花" },
+        { en: "grass",  pos: "n", zh: "草" }
+      ]
+    },
+    {
+      id: "places-transport",
+      label: "地點 & 交通",
+      icon: "🚌",
+      words: [
+        { en: "place",   pos: "n", zh: "地方" },
+        { en: "town",    pos: "n", zh: "城鎮" },
+        { en: "park",    pos: "n", zh: "公園" },
+        { en: "shop",    pos: "n", zh: "商店" },
+        { en: "supermarket", pos: "n", zh: "超市" },
+        { en: "street",  pos: "n", zh: "街道" },
+        { en: "bus",     pos: "n", zh: "公車" },
+        { en: "car",     pos: "n", zh: "汽車" },
+        { en: "bike",    pos: "n", zh: "腳踏車" },
+        { en: "train",   pos: "n", zh: "火車" },
+        { en: "boat",    pos: "n", zh: "小船" },
+        { en: "school",  pos: "n", zh: "學校" },
+        { en: "zoo",     pos: "n", zh: "動物園" }
+      ]
+    },
+    {
+      id: "numbers-colours",
+      label: "數字 & 顏色",
+      icon: "🔢",
+      words: [
+        { en: "one",   pos: "num", zh: "一" },
+        { en: "two",   pos: "num", zh: "二" },
+        { en: "three", pos: "num", zh: "三" },
+        { en: "four",  pos: "num", zh: "四" },
+        { en: "five",  pos: "num", zh: "五" },
+        { en: "six",   pos: "num", zh: "六" },
+        { en: "seven", pos: "num", zh: "七" },
+        { en: "eight", pos: "num", zh: "八" },
+        { en: "nine",  pos: "num", zh: "九" },
+        { en: "ten",   pos: "num", zh: "十" },
+        { en: "colour", pos: "n", zh: "顏色" },
+        { en: "red",    pos: "adj", zh: "紅色的" },
+        { en: "blue",   pos: "adj", zh: "藍色的" },
+        { en: "yellow", pos: "adj", zh: "黃色的" },
+        { en: "green",  pos: "adj", zh: "綠色的" },
+        { en: "black",  pos: "adj", zh: "黑色的" },
+        { en: "white",  pos: "adj", zh: "白色的" },
+        { en: "brown",  pos: "adj", zh: "棕色的" },
+        { en: "orange", pos: "adj", zh: "橘色的" },
+        { en: "pink",   pos: "adj", zh: "粉紅色的" },
+        { en: "purple", pos: "adj", zh: "紫色的" }
+      ]
+    },
+    {
+      id: "actions-basic",
+      label: "基本動作",
+      icon: "🏃",
+      words: [
+        { en: "be",      pos: "v", zh: "是" },
+        { en: "do",      pos: "v", zh: "做" },
+        { en: "have",    pos: "v", zh: "有" },
+        { en: "can",     pos: "modal", zh: "可以；能" },
+        { en: "come",    pos: "v", zh: "來" },
+        { en: "go",      pos: "v", zh: "去" },
+        { en: "walk",    pos: "v", zh: "走路" },
+        { en: "run",     pos: "v", zh: "跑步" },
+        { en: "sit",     pos: "v", zh: "坐" },
+        { en: "stand",   pos: "v", zh: "站" },
+        { en: "open",    pos: "v", zh: "打開" },
+        { en: "close",   pos: "v", zh: "關上" },
+        { en: "look",    pos: "v", zh: "看" },
+        { en: "see",     pos: "v", zh: "看見" },
+        { en: "watch",   pos: "v", zh: "觀看" },
+        { en: "listen",  pos: "v", zh: "聽" },
+        { en: "speak",   pos: "v", zh: "說話" },
+        { en: "read",    pos: "v", zh: "閱讀" },
+        { en: "write",   pos: "v", zh: "寫" },
+        { en: "draw",    pos: "v", zh: "畫畫" }
+      ]
+    },
+    {
+      id: "actions-daily",
+      label: "日常生活動作",
+      icon: "🕒",
+      words: [
+        { en: "eat",     pos: "v", zh: "吃" },
+        { en: "drink",   pos: "v", zh: "喝" },
+        { en: "sleep",   pos: "v", zh: "睡覺" },
+        { en: "get up",  pos: "phr-v", zh: "起床" },
+        { en: "go to bed", pos: "phr-v", zh: "上床睡覺" },
+        { en: "wash",    pos: "v", zh: "洗" },
+        { en: "wash (my) hands", pos: "phr-v", zh: "洗手" },
+        { en: "wash (my) face",  pos: "phr-v", zh: "洗臉" },
+        { en: "brush (my) teeth", pos: "phr-v", zh: "刷牙" },
+        { en: "play",    pos: "v", zh: "玩" },
+        { en: "play with", pos: "phr-v", zh: "和…一起玩" },
+        { en: "play football", pos: "phr-v", zh: "踢足球" },
+        { en: "play a game",   pos: "phr-v", zh: "玩遊戲" },
+        { en: "draw",    pos: "v", zh: "畫畫" },
+        { en: "paint",   pos: "v", zh: "畫圖（用顏料）" },
+        { en: "sing",    pos: "v", zh: "唱歌" },
+        { en: "dance",   pos: "v", zh: "跳舞" }
+      ]
+    },
+    {
+      id: "time-routines",
+      label: "時間 & 例行",
+      icon: "⏰",
+      words: [
+        { en: "day",     pos: "n", zh: "天；白天" },
+        { en: "morning", pos: "n", zh: "早上" },
+        { en: "afternoon", pos: "n", zh: "下午" },
+        { en: "evening", pos: "n", zh: "傍晚" },
+        { en: "night",   pos: "n", zh: "夜晚" },
+        { en: "today",   pos: "adv", zh: "今天" },
+        { en: "yesterday", pos: "adv", zh: "昨天" },
+        { en: "tomorrow",  pos: "adv", zh: "明天" },
+        { en: "now",     pos: "adv", zh: "現在" }
+      ]
+    },
+    {
+      id: "others",
+      label: "其他常見字",
+      icon: "⭐",
+      words: [
+        { en: "and",   pos: "conj", zh: "和；而且" },
+        { en: "but",   pos: "conj", zh: "但是" },
+        { en: "or",    pos: "conj", zh: "或者" },
+        { en: "because", pos: "conj", zh: "因為" },
+        { en: "very",  pos: "adv", zh: "非常" },
+        { en: "really", pos: "adv", zh: "真的" },
+        { en: "here",  pos: "adv", zh: "這裡" },
+        { en: "there", pos: "adv", zh: "那裡" },
+        { en: "big",   pos: "adj", zh: "大的" },
+        { en: "small", pos: "adj", zh: "小的" },
+        { en: "good",  pos: "adj", zh: "好的" },
+        { en: "bad",   pos: "adj", zh: "不好的" },
+        { en: "happy", pos: "adj", zh: "開心的" },
+        { en: "sad",   pos: "adj", zh: "難過的" },
+        { en: "hot",   pos: "adj", zh: "熱的" },
+        { en: "cold",  pos: "adj", zh: "冷的" },
+        { en: "young", pos: "adj", zh: "年輕的" },
+        { en: "old",   pos: "adj", zh: "老的；舊的" }
+      ]
+    }
+  ]
+};
+
+// ===========================
+// Movers 單字
+// ===========================
+window.MOVERS_DATA = {
+  categories: [
+    {
+      id: "family-people",
+      label: "家人 & 人物（Movers）",
+      icon: "👨‍👩‍👧‍👦",
+      words: [
+        { en: "aunt",    pos: "n", zh: "阿姨；姑姑；舅媽" },
+        { en: "uncle",   pos: "n", zh: "叔叔；舅舅；伯父" },
+        { en: "cousin",  pos: "n", zh: "表（堂）兄弟姊妹" },
+        { en: "grandchild", pos: "n", zh: "孫子；孫女" },
+        { en: "grandchildren", pos: "n", zh: "孫子孫女（複數）" }
+      ]
+    },
+    {
+      id: "jobs",
+      label: "職業",
+      icon: "💼",
+      words: [
+        { en: "actor",    pos: "n", zh: "演員" },
+        { en: "artist",   pos: "n", zh: "藝術家；畫家" },
+        { en: "businessman", pos: "n", zh: "商人（男）" },
+        { en: "businesswoman", pos: "n", zh: "女商人" },
+        { en: "farmer",   pos: "n", zh: "農夫" },
+        { en: "waiter",   pos: "n", zh: "服務生（男）" },
+        { en: "waitress", pos: "n", zh: "女服務生" }
+      ]
+    },
+    {
+      id: "school-subjects",
+      label: "學校科目 & 生活",
+      icon: "📚",
+      words: [
+        { en: "English",  pos: "n", zh: "英文" },
+        { en: "maths",    pos: "n", zh: "數學" },
+        { en: "science",  pos: "n", zh: "自然科學" },
+        { en: "computer studies", pos: "n", zh: "資訊課" },
+        { en: "homework", pos: "n", zh: "家庭作業" },
+        { en: "test",     pos: "n", zh: "測驗" },
+        { en: "exam",     pos: "n", zh: "考試" }
+      ]
+    },
+    {
+      id: "house-rooms",
+      label: "家裡空間 & 家務",
+      icon: "🏠",
+      words: [
+        { en: "hall",     pos: "n", zh: "走廊；大廳" },
+        { en: "stairs",   pos: "n", zh: "樓梯" },
+        { en: "upstairs", pos: "adv", zh: "在樓上；往樓上" },
+        { en: "downstairs", pos: "adv", zh: "在樓下；往樓下" },
+        { en: "tidy",     pos: "adj", zh: "整齊的；整潔的" },
+        { en: "tidy (up)", pos: "v", zh: "整理；收拾" }
+      ]
+    },
+    {
+      id: "town-places",
+      label: "城鎮地點",
+      icon: "🏙️",
+      words: [
+        { en: "bank",     pos: "n", zh: "銀行" },
+        { en: "post office", pos: "n", zh: "郵局" },
+        { en: "cinema",   pos: "n", zh: "電影院" },
+        { en: "museum",   pos: "n", zh: "博物館" },
+        { en: "hotel",    pos: "n", zh: "飯店；旅館" },
+        { en: "pet shop", pos: "n", zh: "寵物店" }
+      ]
+    },
+    {
+      id: "transport",
+      label: "交通工具",
+      icon: "🚗",
+      words: [
+        { en: "lorry",    pos: "n", zh: "貨車（英式）" },
+        { en: "motorbike", pos: "n", zh: "機車" },
+        { en: "ship",     pos: "n", zh: "船；艦" },
+        { en: "taxi",     pos: "n", zh: "計程車" }
+      ]
+    },
+    {
+      id: "animals-more",
+      label: "更多動物",
+      icon: "🐯",
+      words: [
+        { en: "bear",   pos: "n", zh: "熊" },
+        { en: "camel",  pos: "n", zh: "駱駝" },
+        { en: "crocodile", pos: "n", zh: "鱷魚" },
+        { en: "giraffe", pos: "n", zh: "長頸鹿" },
+        { en: "kangaroo", pos: "n", zh: "袋鼠" },
+        { en: "lion",   pos: "n", zh: "獅子" },
+        { en: "tiger",  pos: "n", zh: "老虎" },
+        { en: "whale",  pos: "n", zh: "鯨魚" },
+        { en: "zebra",  pos: "n", zh: "斑馬" }
+      ]
+    },
+    {
+      id: "food-drink-more",
+      label: "更多食物 & 飲料",
+      icon: "🍔",
+      words: [
+        { en: "burger",  pos: "n", zh: "漢堡" },
+        { en: "chip",    pos: "n", zh: "薯條（英式）" },
+        { en: "crisps",  pos: "n", zh: "洋芋片（英式）" },
+        { en: "lemonade", pos: "n", zh: "檸檬汽水" },
+        { en: "mineral water", pos: "n", zh: "礦泉水" },
+        { en: "pineapple", pos: "n", zh: "鳳梨" },
+        { en: "salad",   pos: "n", zh: "沙拉" },
+        { en: "sausage", pos: "n", zh: "香腸" },
+        { en: "vegetable", pos: "n", zh: "蔬菜" },
+        { en: "yoghurt", pos: "n", zh: "優格" }
+      ]
+    },
+    {
+      id: "nature-weather-more",
+      label: "大自然 & 天氣（進階）",
+      icon: "🌦️",
+      words: [
+        { en: "beach",   pos: "n", zh: "海灘" },
+        { en: "boating lake", pos: "n", zh: "可以划船的湖" },
+        { en: "bridge",  pos: "n", zh: "橋" },
+        { en: "forest",  pos: "n", zh: "森林" },
+        { en: "hill",    pos: "n", zh: "小山丘" },
+        { en: "island",  pos: "n", zh: "島嶼" },
+        { en: "river",   pos: "n", zh: "河流" }
+      ]
+    },
+    {
+      id: "sports-hobbies",
+      label: "運動 & 興趣",
+      icon: "⚽",
+      words: [
+        { en: "basketball", pos: "n", zh: "籃球" },
+        { en: "cycling", pos: "n", zh: "騎腳踏車" },
+        { en: "fishing", pos: "n", zh: "釣魚" },
+        { en: "hiking",  pos: "n", zh: "健行" },
+        { en: "skiing",  pos: "n", zh: "滑雪" },
+        { en: "skating", pos: "n", zh: "溜冰；滑輪" }
+      ]
+    },
+    {
+      id: "time-routines-more",
+      label: "時間 & 生活作息（Movers）",
+      icon: "🕒",
+      words: [
+        { en: "midnight", pos: "n", zh: "午夜" },
+        { en: "weekend",  pos: "n", zh: "週末" },
+        { en: "always",   pos: "adv", zh: "總是" },
+        { en: "sometimes", pos: "adv", zh: "有時候" },
+        { en: "never",    pos: "adv", zh: "從不" }
+      ]
+    },
+    {
+      id: "verbs-movers",
+      label: "常見動詞（Movers）",
+      icon: "🚀",
+      words: [
+        { en: "arrive",  pos: "v", zh: "到達" },
+        { en: "borrow",  pos: "v", zh: "借入" },
+        { en: "carry",   pos: "v", zh: "提；搬運" },
+        { en: "catch",   pos: "v", zh: "抓住；接住" },
+        { en: "collect", pos: "v", zh: "收集；領取" },
+        { en: "comb",    pos: "v", zh: "梳（頭髮）" },
+        { en: "cut",     pos: "v", zh: "切；剪" },
+        { en: "decide",  pos: "v", zh: "決定" },
+        { en: "dream",   pos: "v", zh: "作夢；幻想" },
+        { en: "enjoy",   pos: "v", zh: "享受；喜歡" }
+      ]
+    }
+  ]
+};
+
+// ===========================
+// Flyers 單字
+// ===========================
+window.FLYERS_DATA = {
+  categories: [
+    {
+      id: "time-everyday",
+      label: "時間 & 日常（Flyers）",
+      icon: "⏰",
+      words: [
+        { en: "a.m.",      pos: "abbr", zh: "上午" },
+        { en: "at the moment", pos: "adv", zh: "此刻；現在" },
+        { en: "autumn",    pos: "n", zh: "秋天（英式）" },
+        { en: "fall",      pos: "n", zh: "秋天（美式）" },
+        { en: "already",   pos: "adv", zh: "已經" },
+        { en: "alone",     pos: "adj", zh: "獨自的" },
+        { en: "ago",       pos: "adv", zh: "以前（…之前）" }
+      ]
+    },
+    {
+      id: "travel-places-flyers",
+      label: "交通 & 旅行（Flyers）",
+      icon: "✈️",
+      words: [
+        { en: "airport",   pos: "n", zh: "機場" },
+        { en: "station",   pos: "n", zh: "車站" },
+        { en: "ticket",    pos: "n", zh: "票；車票" },
+        { en: "bus",       pos: "n", zh: "公車" },
+        { en: "train",     pos: "n", zh: "火車" },
+        { en: "bank",      pos: "n", zh: "銀行" },
+        { en: "hill",      pos: "n", zh: "小山丘" }
+      ]
+    },
+    {
+      id: "health-emergency",
+      label: "健康 & 緊急狀況",
+      icon: "🚑",
+      words: [
+        { en: "ambulance", pos: "n", zh: "救護車" },
+        { en: "bandage",   pos: "n", zh: "繃帶" },
+        { en: "ache",      pos: "v/n", zh: "疼痛；隱隱作痛" },
+        { en: "aching",    pos: "adj", zh: "隱隱作痛的" },
+        { en: "flu",       pos: "n", zh: "流感" }
+      ]
+    },
+    {
+      id: "adventure-art",
+      label: "冒險 & 藝術",
+      icon: "🎨",
+      words: [
+        { en: "adventure", pos: "n", zh: "冒險" },
+        { en: "art",       pos: "n", zh: "藝術；美術課" },
+        { en: "artist",    pos: "n", zh: "藝術家；畫家" },
+        { en: "astronaut", pos: "n", zh: "太空人" }
+      ]
+    },
+    {
+      id: "verbs-thinking",
+      label: "想法 & 感覺動詞",
+      icon: "💭",
+      words: [
+        { en: "agree",   pos: "v", zh: "同意" },
+        { en: "believe", pos: "v", zh: "相信" },
+        { en: "appear",  pos: "v", zh: "出現；似乎" },
+        { en: "act",     pos: "v", zh: "表演；扮演；行動" }
+      ]
+    },
+    {
+      id: "insects-animals",
+      label: "昆蟲 & 小動物",
+      icon: "🐞",
+      words: [
+        { en: "beetle",  pos: "n", zh: "甲蟲" }
+      ]
+    },
+    {
+      id: "grammar-words",
+      label: "語法功能詞",
+      icon: "📖",
+      words: [
+        { en: "as",      pos: "adv/conj", zh: "像…一樣；當…時" },
+        { en: "as ... as", pos: "adv", zh: "和…一樣…（比較用）" },
+        { en: "anyone",  pos: "pron", zh: "任何人" },
+        { en: "anything", pos: "pron", zh: "任何事物" },
+        { en: "anywhere", pos: "adv", zh: "任何地方" }
+      ]
+    }
+  ]
+};

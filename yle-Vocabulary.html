@@ -1,426 +1,441 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>YLE Vocabulary – Starters / Movers / Flyers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>YLE Vocabulary Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 你自己的 CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <h1>YLE Vocabulary Cards</h1>
-  <div class="subtitle">Starters / Movers / Flyers 單字</div>
 
-  <div class="top-bar">
-    <div class="level-tabs">
-      <button class="level-tab level-starters active" data-level="starters">
-        <span class="icon">🌱</span> Starters
+<h1>YLE Vocabulary Cards</h1>
+<div class="subtitle">Starters / Movers / Flyers 單字</div>
+
+<div class="top-bar">
+  <div class="level-tabs">
+    <button class="level-tab level-starters active" data-level="starters">
+      <span class="icon">🌱</span> Starters
+    </button>
+    <button class="level-tab level-movers" data-level="movers">
+      <span class="icon">🚶‍♂️</span> Movers
+    </button>
+    <button class="level-tab level-flyers" data-level="flyers">
+      <span class="icon">🕊️</span> Flyers
+    </button>
+  </div>
+
+  <button class="print-btn" id="printBtn">🖨️ 列印</button>
+</div>
+
+<!-- 搜尋 -->
+<div class="search-card">
+  <input id="searchBox" type="text" placeholder="搜尋英文 / 中文 / 詞性" />
+</div>
+
+<div class="main-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="category-buttons">
+      <div class="cat-title">
+        主題選擇（目前：<span id="currentLevelLabel">Starters</span>）
+      </div>
+
+      <button class="cat-btn special active" data-cat="all">
+        全部主題 <span class="count" id="countAll">0</span>
       </button>
-      <button class="level-tab level-movers" data-level="movers">
-        <span class="icon">🚶‍♂️</span> Movers
+
+      <button class="cat-btn special" data-cat="flat">
+        不分主題（全部單字） <span class="count" id="countFlat">0</span>
       </button>
-      <button class="level-tab level-flyers" data-level="flyers">
-        <span class="icon">🕊️</span> Flyers
-      </button>
+
+      <div id="categoryList"></div>
     </div>
+  </aside>
 
-    <button class="print-btn" id="printBtn">🖨️ 列印</button>
-  </div>
-
-  <!-- 單一搜尋框，中英皆可 -->
-  <div class="search-card">
-    <input id="searchBox" type="text" placeholder="搜尋英文或中文…">
-  </div>
-
-  <div class="main-layout">
-    <aside class="sidebar">
-      <div class="category-buttons">
-        <div class="cat-title">
-          主題選擇（目前：<span id="currentLevelLabel">Starters</span>）
+  <main class="content">
+    <div class="word-panel">
+      <div class="panel-title">
+        <div>
+          <span class="panel-title-main" id="panelTitle">全部主題</span>
+          <span class="panel-title-sub" id="panelSubtitle">顯示所有主題與單字</span>
         </div>
-
-        <button class="cat-btn special active" data-cat="all">
-          全部主題 <span class="count" id="countAll">0</span>
-        </button>
-
-        <button class="cat-btn special" data-cat="flat">
-          不分主題（全部單字） <span class="count" id="countFlat">0</span>
-        </button>
-
-        <div id="categoryList"></div>
+        <span class="panel-badge" id="panelBadge">Starters · 0 詞</span>
       </div>
-    </aside>
 
-    <main class="content">
-      <div class="word-panel">
-        <div class="panel-title">
-          <div>
-            <span class="panel-title-main" id="panelTitle">全部主題</span>
-            <span class="panel-title-sub" id="panelSubtitle">顯示所有主題與單字</span>
-          </div>
-          <span class="panel-badge" id="panelBadge">Starters · 0 詞</span>
+      <div id="wordContent"></div>
+    </div>
+  </main>
+</div>
+
+<!-- 讀取外部資料檔（內含 window.STARTERS_DATA / window.MOVERS_DATA / window.FLYERS_DATA） -->
+<script src="data.js"></script>
+
+<script>
+/***********************
+ * 從 data.js 讀資料（沒讀到就給空的，避免整個掛掉）
+ ***********************/
+const STARTERS_DATA = window.STARTERS_DATA || { categories: [] };
+const MOVERS_DATA   = window.MOVERS_DATA   || { categories: [] };
+const FLYERS_DATA   = window.FLYERS_DATA   || { categories: [] };
+
+/***********************
+ * LEVEL 設定
+ ***********************/
+const LEVEL_CONFIG = {
+  starters: { label: "Starters", short: "S", icon: "🌱" },
+  movers:   { label: "Movers",   short: "M", icon: "🚶‍♂️" },
+  flyers:   { label: "Flyers",   short: "F", icon: "🕊️" }
+};
+
+const DATASETS = {
+  starters: STARTERS_DATA,
+  movers:   MOVERS_DATA,
+  flyers:   FLYERS_DATA
+};
+
+/***********************
+ * 狀態
+ ***********************/
+let currentLevel = "starters";
+let currentCategoryId = "all";
+let searchKey = "";
+
+/***********************
+ * DOM
+ ***********************/
+const levelTabs          = document.querySelectorAll(".level-tab");
+const currentLevelLabel  = document.getElementById("currentLevelLabel");
+const categoryListEl     = document.getElementById("categoryList");
+const countAllEl         = document.getElementById("countAll");
+const countFlatEl        = document.getElementById("countFlat");
+const panelTitleEl       = document.getElementById("panelTitle");
+const panelSubtitleEl    = document.getElementById("panelSubtitle");
+const panelBadgeEl       = document.getElementById("panelBadge");
+const wordContentEl      = document.getElementById("wordContent");
+const searchBox          = document.getElementById("searchBox");
+const sidebar            = document.getElementById("sidebar");
+const printBtn           = document.getElementById("printBtn");
+
+/***********************
+ * TTS：單字發音（跨平台調整）
+ ***********************/
+let selectedVoice = null;
+let ttsAvailable  = typeof window !== "undefined" && "speechSynthesis" in window;
+
+function initVoices() {
+  if (!ttsAvailable) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices || !voices.length) return;
+
+  selectedVoice =
+    voices.find(v => v.name.includes("Google US English")) ||
+    voices.find(v => v.name.includes("Google UK English")) ||
+    voices.find(v => v.name.includes("Microsoft") && v.lang === "en-US") ||
+    voices.find(v => v.lang === "en-US") ||
+    voices.find(v => v.lang.startsWith("en")) ||
+    voices[0];
+}
+
+if (ttsAvailable) {
+  window.speechSynthesis.onvoiceschanged = initVoices;
+  initVoices();
+}
+
+function speakWord(text) {
+  if (!ttsAvailable) return;
+
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang  = "en-US";
+  u.rate  = 0.9;
+  u.pitch = 1.0;
+
+  if (selectedVoice) u.voice = selectedVoice;
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+wordContentEl.addEventListener("click", (e) => {
+  const btn = e.target.closest(".speak-btn");
+  if (!btn) return;
+  speakWord(btn.dataset.word);
+});
+
+/***********************
+ * 工具
+ ***********************/
+function normalize(str) {
+  return (str || "").trim().toLowerCase();
+}
+
+/** 取得某一個 dataset（單一等級）的全部單字 */
+function getAllWords(dataset, levelId) {
+  const cats = dataset.categories || [];
+  const out = [];
+  const levelLabel = LEVEL_CONFIG[levelId]?.label || "";
+  const levelShort = LEVEL_CONFIG[levelId]?.short || "";
+  cats.forEach(cat => {
+    (cat.words || []).forEach(w => {
+      out.push({
+        ...w,
+        categoryId:   cat.id,
+        categoryLabel: cat.label,
+        categoryIcon: cat.icon,
+        levelId,
+        levelLabel,
+        levelShort
+      });
+    });
+  });
+  return out;
+}
+
+/** 取得所有等級（Starters + Movers + Flyers）的全部單字 */
+function getAllWordsAllLevels() {
+  let all = [];
+  all = all.concat(getAllWords(STARTERS_DATA, "starters"));
+  all = all.concat(getAllWords(MOVERS_DATA,   "movers"));
+  all = all.concat(getAllWords(FLYERS_DATA,   "flyers"));
+  return all;
+}
+
+/** 單一等級用的（非搜尋時顯示用） */
+function getAllWordsForCurrentLevel() {
+  const dataset = DATASETS[currentLevel];
+  return getAllWords(dataset, currentLevel);
+}
+
+/** 搜尋：跨等級搜尋全部單字 */
+function filteredWordsAllLevels(key) {
+  const k = normalize(key);
+  if (!k) return getAllWordsAllLevels();
+  return getAllWordsAllLevels().filter(w => {
+    const t = `${w.en} ${w.zh || ""} ${w.pos || ""} ${w.levelLabel || ""}`.toLowerCase();
+    return t.includes(k);
+  });
+}
+
+/***********************
+ * 主題按鈕（只畫 UI，事件用 sidebar 代理）
+ ***********************/
+function renderCategoryButtons() {
+  const dataset = DATASETS[currentLevel];
+  const cats = dataset.categories || [];
+
+  categoryListEl.innerHTML = "";
+
+  const allWords = getAllWordsForCurrentLevel();
+  countAllEl.textContent  = allWords.length;
+  countFlatEl.textContent = allWords.length;
+
+  cats.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "cat-btn";
+    btn.dataset.cat = cat.id;
+    btn.innerHTML = `
+      <span>${cat.icon || ""} ${cat.label}</span>
+      <span class="count">${(cat.words || []).length}</span>
+    `;
+    categoryListEl.appendChild(btn);
+  });
+
+  document.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.cat === currentCategoryId);
+  });
+}
+
+/***********************
+ * 單字 HTML（含 🔊 + 等級小標）
+ ***********************/
+function wordHTML(w) {
+  const safeEn  = String(w.en || "");
+  const safePos = w.pos ? String(w.pos) : "";
+  const safeZh  = w.zh ? String(w.zh) : "";
+  const levelTag = w.levelShort
+    ? `<span class="word-level-tag word-level-${w.levelId}">${w.levelShort}</span>`
+    : "";
+
+  return `
+    <div class="word-cell">
+      <div class="word-row">
+        <div class="word-en-zh">
+          ${levelTag}
+          <span class="word-en">${safeEn}</span>
+          ${safePos ? `<span class="word-pos">${safePos}</span>` : ""}
+          ${safeZh ? `<span class="word-zh">${safeZh}</span>` : ""}
         </div>
-        <div id="wordContent"></div>
+        <button class="speak-btn" data-word="${safeEn}">🔊</button>
       </div>
-    </main>
-  </div>
+    </div>
+  `;
+}
 
-  <!-- 資料檔：內含 LEVEL_CONFIG / DATASETS -->
-  <script src="data.js"></script>
+/***********************
+ * 主內容渲染
+ ***********************/
+function renderContent() {
+  const dataset    = DATASETS[currentLevel];
+  const cats       = dataset.categories || [];
+  const hasSearch  = normalize(searchKey);
+  const levelLabel = LEVEL_CONFIG[currentLevel].label;
 
-  <script>
-    /***********************
-     * 狀態
-     ***********************/
-    let currentLevel = 'starters';
-    let currentCategoryId = 'all';  // 'all' | 'flat' | category.id
-    let searchKey = '';             // 單一搜尋字串（中英都用這個）
+  /* 🔍 搜尋模式：跨 Starters / Movers / Flyers 全部搜尋 */
+  if (hasSearch) {
+    const words = filteredWordsAllLevels(searchKey);
+    panelTitleEl.textContent    = "搜尋結果（全部等級）";
+    panelSubtitleEl.textContent = words.length ? `共 ${words.length} 筆` : "沒有符合的單字";
+    panelBadgeEl.textContent    = `Starters + Movers + Flyers · 搜尋`;
 
-    /***********************
-     * DOM
-     ***********************/
-    const levelTabs = document.querySelectorAll('.level-tab');
-    const currentLevelLabel = document.getElementById('currentLevelLabel');
-    const categoryListEl = document.getElementById('categoryList');
-    const countAllEl = document.getElementById('countAll');
-    const countFlatEl = document.getElementById('countFlat');
-    const panelTitleEl = document.getElementById('panelTitle');
-    const panelSubtitleEl = document.getElementById('panelSubtitle');
-    const panelBadgeEl = document.getElementById('panelBadge');
-    const wordContentEl = document.getElementById('wordContent');
-    const searchBox = document.getElementById('searchBox');
-    const printBtn = document.getElementById('printBtn');
-
-    /***********************
-     * 工具
-     ***********************/
-    function getAllWords(dataset) {
-      const out = [];
-      (dataset.categories || []).forEach(cat => {
-        (cat.words || []).forEach(w => {
-          out.push({
-            ...w,
-            categoryId: cat.id,
-            categoryLabel: cat.label,
-            categoryIcon: cat.icon
-          });
-        });
-      });
-      return out;
+    if (!words.length) {
+      wordContentEl.innerHTML = `<div class="empty-state">目前沒有符合的單字</div>`;
+      return;
     }
 
-    function getAllWordsFromAllLevels() {
-      const out = [];
-      for (const levelKey in DATASETS) {
-        const dataset = DATASETS[levelKey];
-        (dataset.categories || []).forEach(cat => {
-          (cat.words || []).forEach(w => {
-            out.push({
-              ...w,
-              level: levelKey,
-              levelLabel: LEVEL_CONFIG[levelKey].label,
-              levelIcon: LEVEL_CONFIG[levelKey].color,
-              categoryId: cat.id,
-              categoryLabel: cat.label,
-              categoryIcon: cat.icon
-            });
-          });
-        });
-      }
-      return out;
+    wordContentEl.innerHTML = `
+      <div class="word-grid">
+        ${words.map(wordHTML).join("")}
+      </div>
+    `;
+    return;
+  }
+
+  /* 不分類（flat）→ 只顯示目前等級的全部單字 */
+  if (currentCategoryId === "flat") {
+    const words = getAllWordsForCurrentLevel();
+    panelTitleEl.textContent    = "全部單字（不分類）";
+    panelSubtitleEl.textContent = "";
+    panelBadgeEl.textContent    = `${levelLabel} · ${words.length} 詞`;
+
+    wordContentEl.innerHTML = `
+      <div class="word-grid">
+        ${words.map(wordHTML).join("")}
+      </div>
+    `;
+    return;
+  }
+
+  /* 全部主題（目前等級） */
+  if (currentCategoryId === "all") {
+    panelTitleEl.textContent    = "全部主題";
+    panelSubtitleEl.textContent = "";
+    panelBadgeEl.textContent    = `${levelLabel}`;
+
+    if (!cats.length) {
+      wordContentEl.innerHTML = `<div class="empty-state">這個等級暫無主題資料</div>`;
+      return;
     }
 
-    const normalize = (s) => (s || '').toString().trim().toLowerCase();
-
-    function filteredWordsAllLevelsSingleKey(key) {
-      const all = getAllWordsFromAllLevels();
-      const k = normalize(key);
-      if (!k) return all;
-      return all.filter(w => {
-        const enText = (w.en + ' ' + (w.pos || '')).toLowerCase();
-        const zhText = (w.zh || '').toLowerCase();
-        return enText.includes(k) || zhText.includes(k);
-      });
-    }
-
-    /***********************
-     * 渲染側邊主題
-     ***********************/
-    function renderCategoryButtons() {
-      const dataset = DATASETS[currentLevel];
-      const cats = dataset.categories || [];
-      categoryListEl.innerHTML = '';
-
-      const allWords = getAllWords(dataset);
-      countAllEl.textContent = allWords.length;
-      countFlatEl.textContent = allWords.length;
-
-      cats.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'cat-btn';
-        btn.dataset.cat = cat.id;
-        btn.innerHTML = `
-          <span>${cat.icon || ''} ${cat.label}</span>
-          <span class="count">${(cat.words || []).length}</span>
-        `;
-        btn.addEventListener('click', () => {
-          currentCategoryId = cat.id;
-          searchKey = '';
-          searchBox.value = '';
-          updateAll();
-        });
-        categoryListEl.appendChild(btn);
-      });
-
-      // special active
-      document.querySelectorAll('.cat-btn.special').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.cat === currentCategoryId) {
-          btn.classList.add('active');
-        }
-      });
-
-      // category active
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        if (!btn.classList.contains('special')) {
-          btn.classList.toggle('active', btn.dataset.cat === currentCategoryId);
-        }
-      });
-    }
-
-    /***********************
-     * 渲染主內容
-     ***********************/
-    function renderContent() {
-      const dataset = DATASETS[currentLevel];
-      const cats = dataset.categories || [];
-      const levelLabel = LEVEL_CONFIG[currentLevel].label;
-
-      const hasSearch = !!normalize(searchKey);
-
-      // 🔍 搜尋模式：跨等級
-      if (hasSearch) {
-        const words = filteredWordsAllLevelsSingleKey(searchKey);
-
-        panelTitleEl.textContent = '搜尋結果（全部等級）';
-        panelSubtitleEl.textContent = words.length
-          ? `共 ${words.length} 個符合的單字`
-          : '沒有符合關鍵字的單字';
-        panelBadgeEl.textContent = 'Starters / Movers / Flyers · 搜尋中';
-
-        if (!words.length) {
-          wordContentEl.innerHTML =
-            '<div class="empty-state">目前查不到相符的單字。</div>';
-          return;
-        }
-
-        wordContentEl.innerHTML = `
-          <div class="flat-note">依英文字母排序，不分主題、不分等級。</div>
-          <div class="word-grid">
-            ${
-              words
-                .sort((a, b) => {
-                  const c = a.en.localeCompare(b.en);
-                  if (c !== 0) return c;
-                  return (a.levelLabel || '').localeCompare(b.levelLabel || '');
-                })
-                .map(w => `
-                  <div class="word-cell">
-                    <div class="word-en-zh">
-                      <span class="word-en">${w.en}</span>
-                      ${w.pos ? `<span class="word-pos">${w.pos}</span>` : ''}
-                      ${w.zh ? `<span class="word-zh">${w.zh}</span>` : ''}
-                    </div>
-                    <div style="font-size:0.7rem;color:#999;margin-top:1px;">
-                      ${w.levelIcon || ''} ${w.levelLabel || ''}
-                      ｜ ${w.categoryIcon || ''} ${w.categoryLabel || ''}
-                    </div>
-                  </div>
-                `)
-                .join('')
-            }
-          </div>
-        `;
-        return;
-      }
-
-      // 不分主題（目前等級全部單字）
-      if (currentCategoryId === 'flat') {
-        const words = getAllWords(dataset);
-        panelTitleEl.textContent = '不分主題（全部單字）';
-        panelSubtitleEl.textContent =
-          '依英文字母排序，兩個一列，方便背誦與列印。';
-        panelBadgeEl.textContent = `${levelLabel} · ${words.length} 詞`;
-
-        wordContentEl.innerHTML = `
-          <div class="flat-note">目前只顯示「${levelLabel}」等級的全部單字。</div>
-          <div class="word-grid">
-            ${
-              words
-                .sort((a, b) => a.en.localeCompare(b.en))
-                .map(w => `
-                  <div class="word-cell">
-                    <div class="word-en-zh">
-                      <span class="word-en">${w.en}</span>
-                      ${w.pos ? `<span class="word-pos">${w.pos}</span>` : ''}
-                      ${w.zh ? `<span class="word-zh">${w.zh}</span>` : ''}
-                    </div>
-                  </div>
-                `)
-                .join('')
-            }
-          </div>
-        `;
-        return;
-      }
-
-      // 全部主題（目前等級）
-      if (currentCategoryId === 'all') {
-        panelTitleEl.textContent = '全部主題';
-        panelSubtitleEl.textContent =
-          '每一個大主題分段顯示。';
-
-        const allWordsCount = getAllWords(dataset).length;
-        panelBadgeEl.textContent =
-          `${levelLabel} · 共 ${cats.length} 主題 · ${allWordsCount} 詞`;
-
-        if (!cats.length) {
-          wordContentEl.innerHTML =
-            '<div class="empty-state">這個等級目前尚未加入任何主題資料。</div>';
-          return;
-        }
-
-        wordContentEl.innerHTML = `
-          <div class="categories-container">
-            ${
-              cats
-                .map(cat => `
-                  <section class="category-block">
-                    <div class="category-header-grid">
-                      <div class="category-name">
-                        <span class="icon">${cat.icon || ''}</span>
-                        <span>${cat.label}</span>
-                      </div>
-                      <div class="category-header-spacer"></div>
-                    </div>
-                    <div class="word-grid">
-                      ${
-                        (cat.words || [])
-                          .map(w => `
-                            <div class="word-cell">
-                              <div class="word-en-zh">
-                                <span class="word-en">${w.en}</span>
-                                ${w.pos ? `<span class="word-pos">${w.pos}</span>` : ''}
-                                ${w.zh ? `<span class="word-zh">${w.zh}</span>` : ''}
-                              </div>
-                            </div>
-                          `)
-                          .join('')
-                      }
-                    </div>
-                  </section>
-                `)
-                .join('')
-            }
-          </div>
-        `;
-        return;
-      }
-
-      // 單一主題（目前等級）
-      const cat = (cats || []).find(c => c.id === currentCategoryId);
-      if (!cat) {
-        wordContentEl.innerHTML =
-          '<div class="empty-state">找不到這個主題。</div>';
-        panelTitleEl.textContent = '主題不存在';
-        panelSubtitleEl.textContent = '';
-        panelBadgeEl.textContent = levelLabel;
-        return;
-      }
-
-      panelTitleEl.textContent = cat.label;
-      panelSubtitleEl.textContent = '只顯示這一個主題的單字。';
-      panelBadgeEl.textContent = `${levelLabel} · ${(cat.words || []).length} 詞`;
-
-      wordContentEl.innerHTML = `
-        <div class="categories-container">
+    wordContentEl.innerHTML = `
+      <div class="categories-container">
+        ${cats.map(cat => `
           <section class="category-block">
             <div class="category-header-grid">
               <div class="category-name">
-                <span class="icon">${cat.icon || ''}</span>
+                <span class="icon">${cat.icon || ""}</span>
                 <span>${cat.label}</span>
               </div>
-              <div class="category-header-spacer"></div>
             </div>
             <div class="word-grid">
-              ${
-                (cat.words || [])
-                  .map(w => `
-                    <div class="word-cell">
-                      <div class="word-en-zh">
-                        <span class="word-en">${w.en}</span>
-                        ${w.pos ? `<span class="word-pos">${w.pos}</span>` : ''}
-                        ${w.zh ? `<span class="word-zh">${w.zh}</span>` : ''}
-                      </div>
-                    </div>
-                  `)
-                  .join('')
-              }
+              ${(cat.words || []).map(w => 
+                wordHTML({
+                  ...w,
+                  levelId: currentLevel,
+                  levelLabel,
+                  levelShort: LEVEL_CONFIG[currentLevel].short
+                })
+              ).join("")}
             </div>
           </section>
+        `).join("")}
+      </div>
+    `;
+    return;
+  }
+
+  /* 單一主題（目前等級） */
+  const cat = cats.find(c => c.id === currentCategoryId);
+  if (!cat) {
+    wordContentEl.innerHTML = `<div class="empty-state">找不到這個主題</div>`;
+    return;
+  }
+
+  panelTitleEl.textContent    = cat.label;
+  panelSubtitleEl.textContent = "";
+  panelBadgeEl.textContent    = `${levelLabel} · ${(cat.words || []).length} 詞`;
+
+  wordContentEl.innerHTML = `
+    <section class="category-block">
+      <div class="category-header-grid">
+        <div class="category-name">
+          <span class="icon">${cat.icon || ""}</span>
+          <span>${cat.label}</span>
         </div>
-      `;
-    }
+      </div>
+      <div class="word-grid">
+        ${(cat.words || []).map(w => 
+          wordHTML({
+            ...w,
+            levelId: currentLevel,
+            levelLabel,
+            levelShort: LEVEL_CONFIG[currentLevel].short
+          })
+        ).join("")}
+      </div>
+    </section>
+  `;
+}
 
-    /***********************
-     * updateAll
-     ***********************/
-    function updateAll() {
-      currentLevelLabel.textContent = LEVEL_CONFIG[currentLevel].label;
-      levelTabs.forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.level === currentLevel);
-      });
-      renderCategoryButtons();
-      renderContent();
-    }
+/***********************
+ * update
+ ***********************/
+function updateAll() {
+  currentLevelLabel.textContent = LEVEL_CONFIG[currentLevel].label;
+  levelTabs.forEach(tab => {
+    tab.classList.toggle("active", tab.dataset.level === currentLevel);
+  });
+  renderCategoryButtons();
+  renderContent();
+}
 
-    /***********************
-     * 事件綁定
-     ***********************/
-    levelTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const level = tab.dataset.level;
-        if (level === currentLevel) return;
-        currentLevel = level;
-        currentCategoryId = 'all';
-        searchKey = '';
-        searchBox.value = '';
-        updateAll();
-      });
-    });
-
-    document.querySelectorAll('.cat-btn.special').forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentCategoryId = btn.dataset.cat;
-        searchKey = '';
-        searchBox.value = '';
-        updateAll();
-      });
-    });
-
-    searchBox.addEventListener('input', () => {
-      searchKey = searchBox.value;
-      if (searchKey) {
-        renderContent(); // 搜尋模式
-      } else {
-        currentCategoryId = 'all';
-        updateAll();
-      }
-    });
-
-    printBtn.addEventListener('click', () => window.print());
-
+/***********************
+ * 事件綁定
+ ***********************/
+levelTabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    currentLevel      = tab.dataset.level;
+    currentCategoryId = "all";
+    searchKey         = "";
+    searchBox.value   = "";
     updateAll();
-  </script>
+  });
+});
+
+searchBox.addEventListener("input", () => {
+  searchKey = searchBox.value;
+  // 有輸入就交給「搜尋模式」，currentCategoryId 保留原本也沒關係
+  updateAll();
+});
+
+sidebar.addEventListener("click", (e) => {
+  const btn = e.target.closest(".cat-btn");
+  if (!btn) return;
+  currentCategoryId = btn.dataset.cat;
+  searchKey = "";
+  searchBox.value = "";
+  updateAll();
+});
+
+printBtn.addEventListener("click", () => {
+  window.print();
+});
+
+/***********************
+ * 初始化
+ ***********************/
+updateAll();
+</script>
+
+
 </body>
 </html>
