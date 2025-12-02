@@ -246,24 +246,26 @@ function renderCategoryButtons() {
 }
 
 /***********************
- * 單字 HTML（含 🔊 + 等級小標）
+ * 單字 HTML
+ * showLevelName = true 時，才顯示 Starters / Movers / Flyers（搜尋模式用）
  ***********************/
-function wordHTML(w) {
+function wordHTML(w, showLevelName = false) {
   const safeEn  = String(w.en || "");
   const safePos = w.pos ? String(w.pos) : "";
   const safeZh  = w.zh ? String(w.zh) : "";
-  const levelTag = w.levelShort
-    ? `<span class="word-level-tag word-level-${w.levelId}">${w.levelShort}</span>`
+
+  const levelName = (showLevelName && w.levelLabel)
+    ? `<span class="word-level-name">${w.levelLabel}</span>`
     : "";
 
   return `
     <div class="word-cell">
       <div class="word-row">
         <div class="word-en-zh">
-          ${levelTag}
           <span class="word-en">${safeEn}</span>
           ${safePos ? `<span class="word-pos">${safePos}</span>` : ""}
           ${safeZh ? `<span class="word-zh">${safeZh}</span>` : ""}
+          ${levelName}
         </div>
         <button class="speak-btn" data-word="${safeEn}">🔊</button>
       </div>
@@ -294,13 +296,13 @@ function renderContent() {
 
     wordContentEl.innerHTML = `
       <div class="word-grid">
-        ${words.map(wordHTML).join("")}
+        ${words.map(w => wordHTML(w, true)).join("")}
       </div>
     `;
     return;
   }
 
-  /* 不分類（flat）→ 只顯示目前等級的全部單字 */
+  /* 不分類（flat）→ 只顯示目前等級的全部單字（不顯示等級名稱） */
   if (currentCategoryId === "flat") {
     const words = getAllWordsForCurrentLevel();
     panelTitleEl.textContent    = "全部單字（不分類）";
@@ -309,7 +311,7 @@ function renderContent() {
 
     wordContentEl.innerHTML = `
       <div class="word-grid">
-        ${words.map(wordHTML).join("")}
+        ${words.map(w => wordHTML(w, false)).join("")}
       </div>
     `;
     return;
@@ -343,7 +345,7 @@ function renderContent() {
                   levelId: currentLevel,
                   levelLabel,
                   levelShort: LEVEL_CONFIG[currentLevel].short
-                })
+                }, false)
               ).join("")}
             </div>
           </section>
@@ -379,7 +381,7 @@ function renderContent() {
             levelId: currentLevel,
             levelLabel,
             levelShort: LEVEL_CONFIG[currentLevel].short
-          })
+          }, false)
         ).join("")}
       </div>
     </section>

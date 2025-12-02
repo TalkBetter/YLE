@@ -232,6 +232,19 @@ h1 {
   color: #555;
 }
 
+/* 只在「跨等級搜尋」時會顯示的等級名稱小字 */
+.word-level-name {
+  font-size: 0.75rem;
+  color: #999;
+  margin-left: 4px;
+  opacity: 0.7;
+  font-style: italic;     /* 斜體 */
+  letter-spacing: 0.3px;  /* 微字距更易讀 */
+}
+
+
+
+
 /* 主題區塊 */
 .categories-container {
   display: flex;
@@ -351,6 +364,8 @@ h1 {
   padding: 16px 4px;
   text-align: center;
 }
+
+
 
 /* ========= 手機版 ========= */
 @media (max-width: 768px) {
