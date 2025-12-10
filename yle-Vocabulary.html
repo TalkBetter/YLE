@@ -5,13 +5,12 @@
   <title>YLE Vocabulary Cards</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- 你自己的 CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <h1>YLE Vocabulary Cards</h1>
-<div class="subtitle">Starters / Movers / Flyers 單字</div>
+<div class="subtitle">Starters / Movers / Flyers 單字（測試版：每字有例句）</div>
 
 <div class="top-bar">
   <div class="level-tabs">
@@ -31,7 +30,7 @@
 
 <!-- 搜尋 -->
 <div class="search-card">
-  <input id="searchBox" type="text" placeholder="搜尋英文 / 中文 / 詞性" />
+  <input id="searchBox" type="text" placeholder="搜尋英文 / 中文 / 詞性 / 例句" />
 </div>
 
 <div class="main-layout">
@@ -68,12 +67,12 @@
   </main>
 </div>
 
-<!-- 讀取外部資料檔（內含 window.STARTERS_DATA / window.MOVERS_DATA / window.FLYERS_DATA） -->
+<!-- 測試用 / 正式用 data.js -->
 <script src="data.js"></script>
 
 <script>
 /***********************
- * 從 data.js 讀資料（沒讀到就給空的，避免整個掛掉）
+ * 從 data.js 讀資料
  ***********************/
 const STARTERS_DATA = window.STARTERS_DATA || { categories: [] };
 const MOVERS_DATA   = window.MOVERS_DATA   || { categories: [] };
@@ -118,7 +117,7 @@ const sidebar            = document.getElementById("sidebar");
 const printBtn           = document.getElementById("printBtn");
 
 /***********************
- * TTS：單字發音（跨平台調整）
+ * TTS：單字發音
  ***********************/
 let selectedVoice = null;
 let ttsAvailable  = typeof window !== "undefined" && "speechSynthesis" in window;
@@ -156,10 +155,40 @@ function speakWord(text) {
   window.speechSynthesis.speak(u);
 }
 
+/***********************
+ * 類別 MP3 播放
+ ***********************/
+let currentCategoryAudio = null;
+
+function playCategoryAudio(src) {
+  if (!src) return;
+  if (currentCategoryAudio) {
+    currentCategoryAudio.pause();
+    currentCategoryAudio = null;
+  }
+  const audio = new Audio(src);
+  currentCategoryAudio = audio;
+  audio.play().catch(err => {
+    console.warn("Audio play error:", err);
+  });
+}
+
+/***********************
+ * 事件代理：單字發音 & 類別音檔
+ ***********************/
 wordContentEl.addEventListener("click", (e) => {
-  const btn = e.target.closest(".speak-btn");
-  if (!btn) return;
-  speakWord(btn.dataset.word);
+  const speakBtn = e.target.closest(".speak-btn");
+  if (speakBtn) {
+    speakWord(speakBtn.dataset.word);
+    return;
+  }
+
+  const audioBtn = e.target.closest(".cat-audio-btn");
+  if (audioBtn) {
+    const src = audioBtn.dataset.audio;
+    playCategoryAudio(src);
+    return;
+  }
 });
 
 /***********************
@@ -179,9 +208,9 @@ function getAllWords(dataset, levelId) {
     (cat.words || []).forEach(w => {
       out.push({
         ...w,
-        categoryId:   cat.id,
+        categoryId:    cat.id,
         categoryLabel: cat.label,
-        categoryIcon: cat.icon,
+        categoryIcon:  cat.icon,
         levelId,
         levelLabel,
         levelShort
@@ -206,18 +235,18 @@ function getAllWordsForCurrentLevel() {
   return getAllWords(dataset, currentLevel);
 }
 
-/** 搜尋：跨等級搜尋全部單字 */
+/** 搜尋：跨等級搜尋全部單字（含例句） */
 function filteredWordsAllLevels(key) {
   const k = normalize(key);
   if (!k) return getAllWordsAllLevels();
   return getAllWordsAllLevels().filter(w => {
-    const t = `${w.en} ${w.zh || ""} ${w.pos || ""} ${w.levelLabel || ""}`.toLowerCase();
+    const t = `${w.en} ${w.zh || ""} ${w.pos || ""} ${w.levelLabel || ""} ${(w.exEn || "")} ${(w.exZh || "")}`.toLowerCase();
     return t.includes(k);
   });
 }
 
 /***********************
- * 主題按鈕（只畫 UI，事件用 sidebar 代理）
+ * 分類按鈕
  ***********************/
 function renderCategoryButtons() {
   const dataset = DATASETS[currentLevel];
@@ -246,8 +275,7 @@ function renderCategoryButtons() {
 }
 
 /***********************
- * 單字 HTML
- * showLevelName = true 時，才顯示 Starters / Movers / Flyers（搜尋模式用）
+ * 單字 HTML（含每字例句）
  ***********************/
 function wordHTML(w, showLevelName = false) {
   const safeEn  = String(w.en || "");
@@ -257,6 +285,10 @@ function wordHTML(w, showLevelName = false) {
   const levelName = (showLevelName && w.levelLabel)
     ? `<span class="word-level-name">${w.levelLabel}</span>`
     : "";
+
+  // 🔴 這裡改成 exEn / exZh（對應 data.js）
+  const exEn = w.exEn ? String(w.exEn) : "";
+  const exZh = w.exZh ? String(w.exZh) : "";
 
   return `
     <div class="word-cell">
@@ -269,6 +301,13 @@ function wordHTML(w, showLevelName = false) {
         </div>
         <button class="speak-btn" data-word="${safeEn}">🔊</button>
       </div>
+
+      ${(exEn || exZh) ? `
+        <div class="word-example">
+          <span class="ex-en">${exEn}</span>
+          ${exZh ? `<span class="ex-zh">／${exZh}</span>` : ""}
+        </div>
+      ` : ""}
     </div>
   `;
 }
@@ -302,7 +341,7 @@ function renderContent() {
     return;
   }
 
-  /* 不分類（flat）→ 只顯示目前等級的全部單字（不顯示等級名稱） */
+  /* 不分類（flat）→ 只顯示目前等級的全部單字 */
   if (currentCategoryId === "flat") {
     const words = getAllWordsForCurrentLevel();
     panelTitleEl.textContent    = "全部單字（不分類）";
@@ -337,9 +376,14 @@ function renderContent() {
                 <span class="icon">${cat.icon || ""}</span>
                 <span>${cat.label}</span>
               </div>
+              ${cat.audio ? `
+                <button class="cat-audio-btn" data-audio="${cat.audio}">
+                  ▶ 類別例句朗讀
+                </button>
+              ` : `<div></div>`}
             </div>
             <div class="word-grid">
-              ${(cat.words || []).map(w => 
+              ${(cat.words || []).map(w =>
                 wordHTML({
                   ...w,
                   levelId: currentLevel,
@@ -373,9 +417,14 @@ function renderContent() {
           <span class="icon">${cat.icon || ""}</span>
           <span>${cat.label}</span>
         </div>
+        ${cat.audio ? `
+          <button class="cat-audio-btn" data-audio="${cat.audio}">
+            ▶ 類別例句朗讀
+          </button>
+        ` : `<div></div>`}
       </div>
       <div class="word-grid">
-        ${(cat.words || []).map(w => 
+        ${(cat.words || []).map(w =>
           wordHTML({
             ...w,
             levelId: currentLevel,
@@ -415,7 +464,6 @@ levelTabs.forEach(tab => {
 
 searchBox.addEventListener("input", () => {
   searchKey = searchBox.value;
-  // 有輸入就交給「搜尋模式」，currentCategoryId 保留原本也沒關係
   updateAll();
 });
 
@@ -437,7 +485,6 @@ printBtn.addEventListener("click", () => {
  ***********************/
 updateAll();
 </script>
-
 
 </body>
 </html>

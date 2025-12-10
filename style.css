@@ -23,18 +23,19 @@ body {
   background: var(--bg);
   color: var(--text-main);
   line-height: 1.6;
-  font-size: 17px;
+  font-size: 20px; /* 原本 17 / 18，整體加大 */
 }
 
+/* ===== 標題區 ===== */
 h1 {
   margin: 0 0 8px;
-  font-size: 1.4rem;
+  font-size: 1.6rem; /* 放大 */
   text-align: center;
 }
 
 .subtitle {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 1rem; /* 放大 */
   color: var(--text-sub);
   margin-bottom: 12px;
 }
@@ -60,8 +61,8 @@ h1 {
 
 .level-tab {
   border: none;
-  padding: 6px 14px;
-  font-size: 0.9rem;
+  padding: 6px 16px;
+  font-size: 1rem; /* 放大 */
   cursor: pointer;
   background: transparent;
   color: var(--text-sub);
@@ -72,7 +73,7 @@ h1 {
 }
 
 .level-tab span.icon {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .level-tab.active.level-starters {
@@ -93,8 +94,8 @@ h1 {
   border: 1px solid var(--primary);
   background: #fff;
   color: var(--primary);
-  padding: 6px 14px;
-  font-size: 0.9rem;
+  padding: 6px 16px;
+  font-size: 1rem; /* 放大 */
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -104,7 +105,7 @@ h1 {
   background: var(--primary-soft);
 }
 
-/* 搜尋卡片與單一搜尋框 */
+/* ===== 搜尋卡片與單一搜尋框 ===== */
 .search-card {
   max-width: 1080px;
   margin: 0 auto 12px;
@@ -119,7 +120,7 @@ h1 {
   padding: 10px 14px;
   border-radius: 999px;
   border: 1px solid var(--border-soft);
-  font-size: 1rem;
+  font-size: 1.05rem; /* 稍微放大 */
   outline: none;
   background: #fafbff;
   color: var(--text-main);
@@ -130,7 +131,7 @@ h1 {
   background: #fff;
 }
 
-/* 主版面：左側分類 + 右側單字 */
+/* ===== 主版面：左側分類 + 右側單字 ===== */
 .main-layout {
   max-width: 1080px;
   margin: 0 auto;
@@ -140,8 +141,8 @@ h1 {
 }
 
 .sidebar {
-  flex: 0 0 180px;
-  max-width: 220px;
+  flex: 0 0 190px;
+  max-width: 230px;
 }
 
 .content {
@@ -149,21 +150,21 @@ h1 {
   min-width: 0;
 }
 
-/* 分類按鈕區 */
+/* ===== 左側分類按鈕區 ===== */
 .category-buttons {
   background: #fff;
   border-radius: 12px;
-  padding: 8px;
+  padding: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   max-height: 70vh;
   overflow: auto;
-  font-size: 0.85rem;
+  font-size: 0.95rem; /* 原本 0.85 → 放大 */
 }
 
 .cat-title {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .cat-btn {
@@ -171,9 +172,9 @@ h1 {
   text-align: left;
   border-radius: 999px;
   border: none;
-  padding: 4px 9px;
-  margin-bottom: 4px;
-  font-size: 0.8rem;
+  padding: 6px 11px;
+  margin-bottom: 5px;
+  font-size: 0.9rem; /* 原本 0.8 */
   cursor: pointer;
   background: #f4f5ff;
   color: #444;
@@ -184,7 +185,7 @@ h1 {
 }
 
 .cat-btn span.count {
-  font-size: 0.7rem;
+  font-size: 0.8rem; /* 原本 0.7 */
   color: #777;
 }
 
@@ -197,11 +198,11 @@ h1 {
   font-weight: 600;
 }
 
-/* 單字面板 */
+/* ===== 右側單字面板 ===== */
 .word-panel {
   background: #fff;
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   min-height: 200px;
 }
@@ -210,46 +211,43 @@ h1 {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   gap: 4px;
 }
 
 .panel-title-main {
-  font-size: 1rem;
+  font-size: 1.15rem; /* 原本 1rem */
   font-weight: 600;
 }
 
 .panel-title-sub {
-  font-size: 0.8rem;
+  font-size: 0.9rem; /* 原本 0.8 */
   color: var(--text-sub);
 }
 
 .panel-badge {
-  font-size: 0.75rem;
+  font-size: 0.85rem; /* 原本 0.75 */
   border-radius: 999px;
-  padding: 1px 8px;
+  padding: 2px 10px;
   background: #f1f2ff;
   color: #555;
 }
 
-/* 只在「跨等級搜尋」時會顯示的等級名稱小字 */
+/* 只在「跨等級搜尋」時顯示的等級名稱小字 */
 .word-level-name {
-  font-size: 0.75rem;
+  font-size: 0.85rem;  /* 原本 0.75 */
   color: #999;
   margin-left: 4px;
   opacity: 0.7;
-  font-style: italic;     /* 斜體 */
-  letter-spacing: 0.3px;  /* 微字距更易讀 */
+  font-style: italic;
+  letter-spacing: 0.3px;
 }
 
-
-
-
-/* 主題區塊 */
+/* ===== 主題區塊 ===== */
 .categories-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .category-block {
@@ -259,18 +257,20 @@ h1 {
   break-inside: avoid;
 }
 
+/* 主題標題列 + 類別朗讀按鈕，排在同一行 */
 .category-header-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
   margin-bottom: 4px;
 }
 
 .category-name {
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 3px 6px;
-  border-radius: 8px;
+  font-size: 1.05rem; /* 原本 0.95 */
+  padding: 4px 8px;
+  border-radius: 999px;
   background: #f4f5ff;
   display: inline-flex;
   align-items: center;
@@ -278,19 +278,54 @@ h1 {
 }
 
 .category-name span.icon {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
-/* 單字 grid */
+/* 類別例句朗讀按鈕（在主題右側） */
+.cat-audio-btn {
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #4a6fdc, #6f8bff);
+  color: #fff;
+  padding: 5px 12px 5px 10px;
+  font-size: 0.8rem; /* 原本 0.7 */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(74, 111, 220, 0.35);
+  white-space: nowrap;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s;
+}
+
+.cat-audio-btn::before {
+  content: "▶";
+  font-size: 0.82rem;
+  opacity: 0.95;
+}
+
+.cat-audio-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(74, 111, 220, 0.4);
+  background: linear-gradient(135deg, #5a7cff, #8097ff);
+}
+
+.cat-audio-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 1px 3px rgba(74, 111, 220, 0.35);
+}
+
+/* ===== 單字 grid ===== */
 .word-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px 12px;
-  font-size: 0.9rem;
+  gap: 6px 14px;
+  font-size: 1rem; /* 原本 0.9 */
 }
 
 .word-cell {
-  padding: 4px 6px;
+  padding: 5px 7px;
   border-radius: 6px;
 }
 
@@ -316,19 +351,20 @@ h1 {
 
 .word-en {
   font-weight: 600;
+  font-size: 1.1rem; /* 原本跟 grid 同級，略放大 */
 }
 
 .word-pos {
-  font-size: 0.7rem;
+  font-size: 0.8rem; /* 原本 0.7 */
   color: var(--text-sub);
-  padding: 0 4px;
+  padding: 0 6px;
   border-radius: 999px;
   border: 1px solid #dde;
   align-self: center;
 }
 
 .word-zh {
-  font-size: 0.85rem;
+  font-size: 0.95rem; /* 原本 0.85 */
   color: #333;
 }
 
@@ -337,8 +373,8 @@ h1 {
   border: none;
   background: #fff;
   border-radius: 999px;
-  padding: 2px 8px;
-  font-size: 0.8rem;
+  padding: 3px 10px;
+  font-size: 0.9rem; /* 原本 0.8 */
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -353,19 +389,41 @@ h1 {
 }
 
 .flat-note {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--text-sub);
   margin-bottom: 4px;
 }
 
 .empty-state {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-sub);
   padding: 16px 4px;
   text-align: center;
 }
 
+/* ===== 省空間版：單字例句（換色版） ===== */
+.word-example {
+  margin-top: 2px;
+  padding-left: 8px;
+  border-left: 2px solid #b9c3ff;
+  font-size: 0.88rem; /* 原本 0.72 */
+  line-height: 1.35;
+}
 
+/* 英文例句：藍色 */
+.word-example .ex-en {
+  display: inline;
+  font-weight: 500;
+  color: #3b57c4;
+}
+
+/* 中文例句：紫灰色 */
+.word-example .ex-zh {
+  display: inline;
+  margin-left: 4px;
+  color: #7a6d99;
+  font-size: 0.86rem; /* 原本 0.7 */
+}
 
 /* ========= 手機版 ========= */
 @media (max-width: 768px) {
@@ -375,11 +433,11 @@ h1 {
   }
 
   h1 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .top-bar {
@@ -396,7 +454,7 @@ h1 {
   .print-btn {
     align-self: flex-end;
     padding: 6px 12px;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 
   .main-layout {
@@ -410,24 +468,23 @@ h1 {
 
   .category-buttons {
     max-height: none;
-    font-size: 1rem;
+    font-size: 1.05rem;
     padding: 10px 10px;
   }
 
-  /* 手機版分類按鈕放大 */
   .cat-btn {
     padding: 10px 14px;
     margin-bottom: 8px;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     border-radius: 999px;
   }
 
   .cat-btn span.count {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   .cat-title {
-    font-size: 1rem;
+    font-size: 1.05rem;
     margin-bottom: 8px;
   }
 
@@ -438,7 +495,7 @@ h1 {
   .word-grid {
     grid-template-columns: 1fr !important;
     gap: 10px !important;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
 
   .word-cell {
@@ -447,29 +504,42 @@ h1 {
   }
 
   .word-en {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
   }
 
   .word-zh {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
   }
 
   .word-pos {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
   }
 
   .speak-btn {
     padding: 4px 10px;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .category-name {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
   }
 
   .flat-note,
   .cat-title {
-    font-size: 0.95rem;
+    font-size: 1rem;
+  }
+
+  .word-example {
+    font-size: 1rem;
+  }
+
+  .word-example .ex-zh {
+    font-size: 0.9rem;
+  }
+
+  .cat-audio-btn {
+    font-size: 0.9rem;
+    padding: 6px 14px 6px 12px;
   }
 }
 
@@ -481,7 +551,6 @@ h1 {
     font-size: 11pt;
   }
 
-  /* 列印時隱藏標題與上方說明 */
   h1,
   .subtitle,
   .panel-title {
@@ -509,7 +578,6 @@ h1 {
     border-radius: 0;
   }
 
-  /* 列印維持每個主題內兩欄（靠 grid），避免左欄空白 */
   #wordContent {
     width: 100% !important;
     max-width: none !important;
@@ -536,8 +604,19 @@ h1 {
     page-break-inside: avoid;
   }
 
-  .speak-btn {
-    display: none; /* 列印不需要發音按鈕 */
+  .speak-btn,
+  .cat-audio-btn {
+    display: none;
+  }
+
+  .word-example {
+    color: #000;
+    border-left: 1px solid #999;
+  }
+
+  .word-example .ex-en,
+  .word-example .ex-zh {
+    color: #000;
   }
 }
 
