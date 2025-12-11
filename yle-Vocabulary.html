@@ -67,7 +67,7 @@
   </main>
 </div>
 
-<!-- 測試用 / 正式用 data.js -->
+<!-- 你的 data.js（內含 window.STARTERS_DATA / MOVERS_DATA / FLYERS_DATA） -->
 <script src="data.js"></script>
 
 <script>
@@ -156,37 +156,93 @@ function speakWord(text) {
 }
 
 /***********************
- * 類別 MP3 播放
+ * 音檔播放（類別＋例句共用）
  ***********************/
-let currentCategoryAudio = null;
+// 目前正在播放的 Audio 物件 & 對應的按鈕
+let currentAudio    = null;
+let currentAudioBtn = null;
 
-function playCategoryAudio(src) {
-  if (!src) return;
-  if (currentCategoryAudio) {
-    currentCategoryAudio.pause();
-    currentCategoryAudio = null;
+/**
+ * 播放與按鈕綁定的音檔：
+ * - src: 可能是純檔名（S_family_01.mp3）或含路徑（sentence/S_family_01.mp3）
+ * - btnEl: 被點擊的按鈕（cat-audio-btn / ex-audio-btn 都可以）
+ */
+function playAudioForButton(src, btnEl) {
+  if (!src || !btnEl) return;
+
+  // 若目前有正在播放的，先停掉並還原舊按鈕樣式
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
   }
-  const audio = new Audio(src);
-  currentCategoryAudio = audio;
+  if (currentAudioBtn) {
+    currentAudioBtn.classList.remove("is-playing");
+  }
+
+  // 如果點的是同一顆按鈕，視為「停止」
+  if (currentAudioBtn === btnEl) {
+    currentAudio    = null;
+    currentAudioBtn = null;
+    return;
+  }
+
+  // 決定最終路徑：
+  // 若沒有 http / https 且沒有 "/"，自動補上 sentence/
+  let finalSrc = src;
+  if (!/^https?:\/\//.test(src) && !src.includes("/")) {
+    finalSrc = "sentence/" + src;
+  }
+
+  const audio = new Audio(finalSrc);
+  currentAudio    = audio;
+  currentAudioBtn = btnEl;
+
+  // 按鈕加上播放中的樣式（對應 CSS .is-playing 動畫）
+  btnEl.classList.add("is-playing");
+
   audio.play().catch(err => {
     console.warn("Audio play error:", err);
+    // 播放失敗，還原
+    if (currentAudioBtn === btnEl) {
+      btnEl.classList.remove("is-playing");
+      currentAudio    = null;
+      currentAudioBtn = null;
+    }
+  });
+
+  audio.addEventListener("ended", () => {
+    if (currentAudioBtn === btnEl) {
+      btnEl.classList.remove("is-playing");
+      currentAudio    = null;
+      currentAudioBtn = null;
+    }
   });
 }
 
 /***********************
- * 事件代理：單字發音 & 類別音檔
+ * 事件代理：單字發音 & 類別音檔 & 例句音檔
  ***********************/
 wordContentEl.addEventListener("click", (e) => {
+  // 單字 TTS
   const speakBtn = e.target.closest(".speak-btn");
   if (speakBtn) {
     speakWord(speakBtn.dataset.word);
     return;
   }
 
-  const audioBtn = e.target.closest(".cat-audio-btn");
-  if (audioBtn) {
-    const src = audioBtn.dataset.audio;
-    playCategoryAudio(src);
+  // 類別音檔（cat-audio-btn）
+  const catBtn = e.target.closest(".cat-audio-btn");
+  if (catBtn) {
+    const src = catBtn.dataset.audio;
+    playAudioForButton(src, catBtn);
+    return;
+  }
+
+  // 單字例句音檔（ex-audio-btn）
+  const exBtn = e.target.closest(".ex-audio-btn");
+  if (exBtn) {
+    const src = exBtn.dataset.audio;   // 例如 "S_family_01.mp3"
+    playAudioForButton(src, exBtn);
     return;
   }
 });
@@ -275,7 +331,7 @@ function renderCategoryButtons() {
 }
 
 /***********************
- * 單字 HTML（含每字例句）
+ * 單字 HTML（含每字例句 + 例句音檔按鈕）
  ***********************/
 function wordHTML(w, showLevelName = false) {
   const safeEn  = String(w.en || "");
@@ -286,9 +342,13 @@ function wordHTML(w, showLevelName = false) {
     ? `<span class="word-level-name">${w.levelLabel}</span>`
     : "";
 
-  // 🔴 這裡改成 exEn / exZh（對應 data.js）
   const exEn = w.exEn ? String(w.exEn) : "";
   const exZh = w.exZh ? String(w.exZh) : "";
+
+  // 例句 mp3 按鈕（只要有 audio 欄位就顯示）
+  const exAudioBtnHTML = w.audio
+    ? `<button class="ex-audio-btn" data-audio="${w.audio}" aria-label="播放例句"></button>`
+    : "";
 
   return `
     <div class="word-cell">
@@ -305,7 +365,8 @@ function wordHTML(w, showLevelName = false) {
       ${(exEn || exZh) ? `
         <div class="word-example">
           <span class="ex-en">${exEn}</span>
-          ${exZh ? `<span class="ex-zh">／${exZh}</span>` : ""}
+          ${exZh ? `<span class="ex-zh">${exZh}</span>` : ""}
+          ${exAudioBtnHTML}
         </div>
       ` : ""}
     </div>
@@ -321,7 +382,7 @@ function renderContent() {
   const hasSearch  = normalize(searchKey);
   const levelLabel = LEVEL_CONFIG[currentLevel].label;
 
-  /* 🔍 搜尋模式：跨 Starters / Movers / Flyers 全部搜尋 */
+  // 🔍 搜尋模式：跨 Starters / Movers / Flyers 全部搜尋
   if (hasSearch) {
     const words = filteredWordsAllLevels(searchKey);
     panelTitleEl.textContent    = "搜尋結果（全部等級）";
@@ -341,7 +402,7 @@ function renderContent() {
     return;
   }
 
-  /* 不分類（flat）→ 只顯示目前等級的全部單字 */
+  // 不分類（flat）→ 只顯示目前等級的全部單字
   if (currentCategoryId === "flat") {
     const words = getAllWordsForCurrentLevel();
     panelTitleEl.textContent    = "全部單字（不分類）";
@@ -356,7 +417,7 @@ function renderContent() {
     return;
   }
 
-  /* 全部主題（目前等級） */
+  // 全部主題（目前等級）
   if (currentCategoryId === "all") {
     panelTitleEl.textContent    = "全部主題";
     panelSubtitleEl.textContent = "";
@@ -399,7 +460,7 @@ function renderContent() {
     return;
   }
 
-  /* 單一主題（目前等級） */
+  // 單一主題（目前等級）
   const cat = cats.find(c => c.id === currentCategoryId);
   if (!cat) {
     wordContentEl.innerHTML = `<div class="empty-state">找不到這個主題</div>`;
