@@ -35,6 +35,7 @@ CATEGORY_ID = ""
 INCLUDE_CATEGORY_AUDIO = "auto"
 
 # 測試先輸出到這裡；要正式覆蓋 sentence 時改成 PROJECT_DIR / "sentence"
+SENTENCE_RANGE: tuple[int, int] | None = None
 OUTPUT_DIR = TRANSCRIPT_DIR / "split_test_04_adjectives_feelings"
 
 FFMPEG = PROJECT_DIR / "ffmpeg.exe"
@@ -487,6 +488,30 @@ def build_audio_items(
     ]
 
 
+def apply_sentence_range(
+    items: list,
+    sentence_range: tuple[int, int] | None,
+    label: str,
+) -> list:
+    if sentence_range is None:
+        return items
+
+    start, end = sentence_range
+    if start < 1 or end < start:
+        raise ValueError(
+            f"Invalid SENTENCE_RANGE {sentence_range!r} for {label}; "
+            "expected 1-based inclusive (start, end)."
+        )
+
+    selected = items[start - 1 : end]
+    if not selected:
+        raise ValueError(
+            f"SENTENCE_RANGE {sentence_range!r} selects no items from {label} "
+            f"(available: 1-{len(items)})."
+        )
+    return selected
+
+
 def split_audio(
     ffmpeg: str,
     input_audio: Path,
@@ -577,13 +602,21 @@ def process_one(
     overwrite: bool,
     dry_run: bool,
     include_category_audio: bool | str,
+    sentence_range: tuple[int, int] | None,
 ) -> None:
     if not input_audio.exists():
         raise FileNotFoundError(input_audio)
 
     transcript_path = transcript_dir / f"{input_audio.stem}.txt"
     transcript_lines = read_transcript_lines(transcript_path)
+    if transcript_lines:
+        transcript_lines = apply_sentence_range(
+            transcript_lines,
+            sentence_range,
+            transcript_path.name,
+        )
     audio_items = build_audio_items(category, transcript_lines, include_category_audio)
+    audio_items = apply_sentence_range(audio_items, sentence_range, input_audio.name)
     sentence_count = len(audio_items)
     if transcript_lines and len(transcript_lines) != sentence_count:
         print(
@@ -687,6 +720,7 @@ def main() -> int:
             overwrite=OVERWRITE_EXISTING,
             dry_run=DRY_RUN,
             include_category_audio=INCLUDE_CATEGORY_AUDIO,
+            sentence_range=SENTENCE_RANGE,
         )
 
     return 0
